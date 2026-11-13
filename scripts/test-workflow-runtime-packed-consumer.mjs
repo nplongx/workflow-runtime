@@ -29,7 +29,7 @@ try {
   const packed = JSON.parse(run('npm', ['pack', '--json', '--pack-destination', temporaryRoot], root, 'npm pack'));
   assert.equal(packed.length, 1);
   assert.equal(packed[0].name, '@runalith/workflow-runtime');
-  assert.equal(packed[0].version, '0.3.7');
+  assert.equal(packed[0].version, '0.3.8');
   const tarball = path.join(temporaryRoot, packed[0].filename);
   assert.ok(fs.statSync(tarball).size > 10_000);
 
@@ -51,6 +51,13 @@ try {
     const workspaceWrite = await import('@runalith/workflow-runtime/workspace-write-contract');
     const compiledAgentContracts = await import('@runalith/workflow-runtime/agent-contracts');
     const workflowPlan = await import('@runalith/workflow-runtime/workflow-plan');
+    const workflowDefinitions = await import('@runalith/workflow-runtime/workflow-definitions/index');
+    const engineeringDefinition = await import('@runalith/workflow-runtime/workflow-definitions/engineering');
+    const standardEngineeringDefinition = await import('@runalith/workflow-runtime/workflow-definitions/standard-engineering');
+    const productionDefinition = await import('@runalith/workflow-runtime/workflow-definitions/production');
+    const engineeringCatalog = await import('@runalith/workflow-runtime/workflow-catalog/engineering');
+    const hybridCatalog = await import('@runalith/workflow-runtime/workflow-catalog/hybrid-engineering');
+    const standardEngineeringCatalog = await import('@runalith/workflow-runtime/workflow-catalog/standard-engineering');
     const agentContracts = await import('@runalith/agent-contracts');
     const workspaceFilesystem = await import('@runalith/workspace-runtime/filesystem');
     assert.equal(fs.existsSync(${JSON.stringify(databasePath)}), false, 'package import created host database');
@@ -142,6 +149,13 @@ try {
     assert.equal(compiledAgentContracts.configureCompiledActionIntentSemanticVerifier,
       workflowPlan.configureCompiledActionIntentSemanticVerifier,
       'public Workflow Plan API and Agent Contracts subpath must share one verifier configuration closure');
+    assert.equal(workflowDefinitions.getWorkflowDefinition({ title: 'Software Delivery fixture' }).id, 'standard-engineering');
+    assert.equal(engineeringDefinition.EngineeringWorkflow.id, 'engineering');
+    assert.equal(standardEngineeringDefinition.StandardEngineeringWorkflow.id, 'standard-engineering');
+    assert.equal(productionDefinition.ProductionWorkflow.id, 'production');
+    assert.ok(engineeringCatalog.engineeringTaskSpecs('/tmp').length > 0);
+    assert.ok(hybridCatalog.hybridEngineeringTaskSpecs('/tmp').length > 0);
+    assert.ok(standardEngineeringCatalog.standardEngineeringTaskSpecs('/tmp').length > 0);
     assert.equal(typeof api.workflowPlanApi.validateExecutionPlan, 'function');
     const planApi = await import('@runalith/workflow-runtime/workflow-plan');
     assert.equal(planApi.WORKFLOW_PLAN_API_VERSION, 1);

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.8
+
+- Expose immutable Workflow definitions and deterministic task-catalog spec builders through explicit `./workflow-definitions/*` and `./workflow-catalog/*` subpaths.
+- Preserve existing module bytes and relative import graph; public subpaths resolve the same source modules used internally by Workflow Runtime.
+- Keep `catalog/production.js` host-bound because its production QA harness path is rooted at the host plugin and protected by the host-supplied immutable harness digest.
+- No workflow lifecycle, compiler policy, role assignment, approval, event or transaction authority changes.
+
 ## 0.3.7
 
 - Expose Workflow's compiled Agent Contract structural validator and one-time AGG semantic-verifier injection through `./agent-contracts`.

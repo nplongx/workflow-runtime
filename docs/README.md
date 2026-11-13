@@ -11,6 +11,7 @@
 | Durable Workflow execution evidence contract | [Execution evidence](execution-evidence.md) |
 | Scoped workspace-write plan contract | [Workspace-write contract](workspace-write-contract.md) |
 | Compiled Agent Contract structural validation and host semantic-verifier injection | [Compiled Agent Contracts](agent-contracts.md) |
+| Built-in Workflow definitions and task catalogs | [Workflow definitions and catalogs](workflow-definitions-and-catalogs.md) |
 | SQLite opening, connection ownership, migrations | [Database integration](integration.md) |
 | Workflow, execution, provider, and Agent Session terms | [Terminology](terminology.md) |
 | Upstream source, pinned files, and extraction exclusions | [Source lineage](source-lineage.md) |

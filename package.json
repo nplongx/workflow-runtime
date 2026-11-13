@@ -1,6 +1,6 @@
 {
   "name": "@runalith/workflow-runtime",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "Local-first, SQLite-backed durable workflow lifecycle and agent-session runtime.",
   "license": "MIT",
   "type": "module",
@@ -18,7 +18,15 @@
     "./role-profiles": "./src/runtime/workflow/role-profiles.js",
     "./evidence": "./src/runtime/workflow/evidence.js",
     "./workspace-write-contract": "./src/runtime/workflow/workspace-write-contract.js",
-    "./agent-contracts": "./src/runtime/workflow/agent-contracts.js"
+    "./agent-contracts": "./src/runtime/workflow/agent-contracts.js",
+    "./workflow-definitions/index": "./src/runtime/workflow/definitions/index.js",
+    "./workflow-definitions/engineering": "./src/runtime/workflow/definitions/engineering.js",
+    "./workflow-definitions/hybrid-engineering": "./src/runtime/workflow/definitions/hybrid-engineering.js",
+    "./workflow-definitions/production": "./src/runtime/workflow/definitions/production.js",
+    "./workflow-definitions/standard-engineering": "./src/runtime/workflow/definitions/standard-engineering.js",
+    "./workflow-catalog/engineering": "./src/runtime/workflow/catalog/engineering.js",
+    "./workflow-catalog/hybrid-engineering": "./src/runtime/workflow/catalog/hybrid-engineering.js",
+    "./workflow-catalog/standard-engineering": "./src/runtime/workflow/catalog/standard-engineering.js"
   },
   "files": [
     "index.js",
