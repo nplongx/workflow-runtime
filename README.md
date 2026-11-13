@@ -7,7 +7,7 @@
 
 It is a composable runtime library, not a network service or a self-running workflow platform. The host application remains responsible for authenticated identity, trust configuration, provider calls, process execution, scheduling, external side effects, and operational recovery.
 
-> **Status:** 0.3.10, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
+> **Status:** 0.3.11, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
 
 ## Scope
 
@@ -331,3 +331,7 @@ See [recovery compatibility and Workflow tool errors](docs/recovery-and-errors.m
 ## Policy Contract API
 
 The read-only `./policy-contract` subpath exposes policy schema normalization, immutable snapshot hashing/validation, pure success-contract composition, detached stored-row verification, the rule catalog, stable predicate IDs and immutable validation-profile materialization. It deliberately does not export SQLite policy CRUD, attachment, event or violation writes; those remain inside Workflow Runtime store composition. `materializeValidationProfileTasks` returns local task descriptors only and does not execute or authorize them.
+
+## Workflow schema contract
+
+The narrow `./schema-contract` subpath exports only the pure `validateWorkflowDefinition` function over detached Workflow definition records. Workflow-specific catalog validation stays on the host path; Production QA harness root and digest remain host-owned and are not re-exported.

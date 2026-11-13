@@ -24,3 +24,4 @@ Recommended reading order: architecture, integration, terminology, then the secu
 The root README is the installation and quick-start entrypoint. This package has no separate daemon or deployment manifest.
 
 | Policy Contract API | [Policy Contract](policy-contract.md) |
+| Workflow schema contract | [Workflow schema contract](schema-contract.md) |

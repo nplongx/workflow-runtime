@@ -29,7 +29,7 @@ try {
   const packed = JSON.parse(run('npm', ['pack', '--json', '--pack-destination', temporaryRoot], root, 'npm pack'));
   assert.equal(packed.length, 1);
   assert.equal(packed[0].name, '@runalith/workflow-runtime');
-  assert.equal(packed[0].version, '0.3.10');
+  assert.equal(packed[0].version, '0.3.11');
   const tarball = path.join(temporaryRoot, packed[0].filename);
   assert.ok(fs.statSync(tarball).size > 10_000);
 
@@ -61,6 +61,7 @@ try {
     const recoveryCompatibility = await import('@runalith/workflow-runtime/recovery-compatibility');
     const workflowErrors = await import('@runalith/workflow-runtime/tool-errors');
     const policyContract = await import('@runalith/workflow-runtime/policy-contract');
+    const workflowSchema = await import('@runalith/workflow-runtime/schema-contract');
     const agentContracts = await import('@runalith/agent-contracts');
     const workspaceFilesystem = await import('@runalith/workspace-runtime/filesystem');
     assert.equal(fs.existsSync(${JSON.stringify(databasePath)}), false, 'package import created host database');
@@ -170,6 +171,8 @@ try {
     assert.equal(policyContract.resolveValidationProfileSnapshot({ profile_id: 'core-release-validation', profile_version: 1 }).profile_id, 'core-release-validation');
     assert.equal(typeof policyContract.initializeWorkflowPolicyStore, 'undefined', 'public pure policy API must not export SQLite mutation operations');
     assert.equal(typeof policyContract.createWorkflowPolicy, 'undefined', 'public pure policy API must not export policy persistence');
+    assert.equal(workflowSchema.validateWorkflowDefinition({ id: 'packed-schema', version: 1, phases: ['plan'], requiredChildren: ['task'] }).id, 'packed-schema');
+    assert.equal(typeof workflowSchema.validateProductionWorkflow, 'undefined', 'production harness validation must remain outside the narrow schema contract');
     assert.equal(typeof api.workflowPlanApi.validateExecutionPlan, 'function');
     const planApi = await import('@runalith/workflow-runtime/workflow-plan');
     assert.equal(planApi.WORKFLOW_PLAN_API_VERSION, 1);

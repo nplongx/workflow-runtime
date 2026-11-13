@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.11
+
+- Expose narrow `./schema-contract` subpath for the package-owned pure `validateWorkflowDefinition` function.
+- Keep workflow-specific QA validation and the Production QA harness root/digest bound to the host.
+
+
 ## 0.3.10
 
 - Expose curated `./policy-contract` subpath for pure policy normalization, immutable snapshot/hash validation, success-contract composition, detached row inspection, rule catalog and validation-profile task materialization.
