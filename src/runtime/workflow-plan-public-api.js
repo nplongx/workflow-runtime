@@ -5,6 +5,13 @@ import {
   assertTaskDependenciesMatchPlan,
   resolveTaskBatchRoute
 } from './workflow/plan.js';
+import { configureCompiledActionIntentSemanticVerifier } from './workflow/agent-contracts.js';
+
+// The Workflow Runtime validates typed action intents, but their semantic
+// policy is owned by the composing host. Expose the one-time verifier
+// injection through the same package module instance used by
+// validateExecutionPlan; a host-local mirror cannot configure this closure.
+export { configureCompiledActionIntentSemanticVerifier };
 
 export const WORKFLOW_PLAN_API_VERSION = 1;
 export const WORKFLOW_PLAN_API_METHODS = Object.freeze([

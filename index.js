@@ -19,6 +19,7 @@ export {
   WORKFLOW_PLAN_API_METHODS,
   workflowPlanApi,
   canonicalJson,
+  configureCompiledActionIntentSemanticVerifier,
   validateExecutionPlan,
   assertTaskDependenciesMatchPlan,
   resolveTaskBatchRoute

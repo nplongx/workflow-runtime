@@ -7,7 +7,7 @@
 
 It is a composable runtime library, not a network service or a self-running workflow platform. The host application remains responsible for authenticated identity, trust configuration, provider calls, process execution, scheduling, external side effects, and operational recovery.
 
-> **Status:** 0.2.0, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
+> **Status:** 0.2.1, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
 
 ## Scope
 
@@ -173,3 +173,13 @@ const canonical = workflowPlanApi.canonicalJson(validatedPlan);
 ~~~
 
 The API is frozen/versioned (`WORKFLOW_PLAN_API_VERSION = 1`) and exposes four named methods: `canonicalJson`, `validateExecutionPlan`, `assertTaskDependenciesMatchPlan`, and `resolveTaskBatchRoute`. It has no SQLite, WorkflowStore or mutable persistence capability. Use this subpath for read/validation integrations that do not need the runtime store.
+
+Typed action-intent validation also requires a host-owned semantic verifier. Configure it once through the package export before validating plans that contain typed action intents:
+
+~~~js
+import { configureCompiledActionIntentSemanticVerifier } from '@runalith/workflow-runtime/workflow-plan';
+
+configureCompiledActionIntentSemanticVerifier(hostOwnedSemanticVerifier);
+~~~
+
+The callback is an integration port, not an authorization grant. It cannot be replaced after initial configuration. The package keeps structural validation; the host retains semantic policy and all approval/dispatch authority.

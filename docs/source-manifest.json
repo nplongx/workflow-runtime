@@ -17,8 +17,8 @@
   "files": [
     {
       "path": "index.js",
-      "sha256": "bacae5934672cf64fef385b7f7ba7eafbbf1cc7ef5cfa440dafa4012016870e3",
-      "sizeBytes": 2317
+      "sha256": "e6046a9639bee42cc130579235092efac461ef8d8feb2f136b178cbfe7df9a04",
+      "sizeBytes": 2366
     },
     {
       "path": "job-store.js",
@@ -27,7 +27,7 @@
     },
     {
       "path": "package.json",
-      "sha256": "646dd98c89fae8d367c804ab7502c4c179351d26f33c7be40152a729ba00fb19",
+      "sha256": "edf01a6195cf35d8a897f7320a7de2f7def53682353eec3959dc0b559669c703",
       "sizeBytes": 1425
     },
     {
@@ -142,8 +142,8 @@
     },
     {
       "path": "src/runtime/workflow-plan-public-api.js",
-      "sha256": "7cbd69cad3994f5df6e21d95b4ffb72701b375718d31cc98cd403a54ccb55738",
-      "sizeBytes": 705
+      "sha256": "6eeeaf6b364c57ac5668bb7f8d0683563fdec8cb929366e351af22d774e28164",
+      "sizeBytes": 1144
     },
     {
       "path": "src/runtime/workflow-state-port.js",
@@ -276,5 +276,5 @@
       "sizeBytes": 9914
     }
   ],
-  "packageVersion": "0.2.0"
+  "packageVersion": "0.2.1"
 }

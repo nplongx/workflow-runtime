@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1
+
+- Expose one-time host injection for typed action-intent semantic verification through the public Workflow Plan module, sharing the exact verifier instance used by `validateExecutionPlan`.
+
 ## 0.1.0
 
 - Initial Workflow Runtime source extraction.

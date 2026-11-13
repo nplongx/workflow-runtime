@@ -29,7 +29,7 @@ try {
   const packed = JSON.parse(run('npm', ['pack', '--json', '--pack-destination', temporaryRoot], root, 'npm pack'));
   assert.equal(packed.length, 1);
   assert.equal(packed[0].name, '@runalith/workflow-runtime');
-  assert.equal(packed[0].version, '0.2.0');
+  assert.equal(packed[0].version, '0.2.1');
   const tarball = path.join(temporaryRoot, packed[0].filename);
   assert.ok(fs.statSync(tarball).size > 10_000);
 
@@ -47,10 +47,12 @@ try {
     assert.equal(typeof api.createWorkflowStatePort, 'function');
     assert.equal(typeof api.createExecutionStatePort, 'function');
     assert.equal(typeof api.configureProductionQaHarnessRoot, 'function');
+    assert.equal(typeof api.configureCompiledActionIntentSemanticVerifier, 'function');
     assert.equal(api.WORKFLOW_PLAN_API_VERSION, 1);
     assert.equal(typeof api.workflowPlanApi.validateExecutionPlan, 'function');
     const planApi = await import('@runalith/workflow-runtime/workflow-plan');
     assert.equal(planApi.WORKFLOW_PLAN_API_VERSION, 1);
+    assert.equal(typeof planApi.configureCompiledActionIntentSemanticVerifier, 'function');
     assert.equal(planApi.workflowPlanApi.canonicalJson({b:2,a:1}), '{\"a\":1,\"b\":2}');
     const database = new DatabaseSync(':memory:');
     try {

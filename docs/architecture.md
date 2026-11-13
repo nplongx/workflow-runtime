@@ -92,3 +92,5 @@ The runtime uses Node.js built-ins, including node:sqlite, and has no third-part
 ## Workflow Plan API v1
 
 The immutable execution-plan normalizer is exported from `@runalith/workflow-runtime/workflow-plan` as a frozen four-method API: canonical JSON, plan validation, persisted dependency assertion and batch-route resolution. It is pure with respect to persistence: consumers supply plan/task values, and no database handle or generic transaction surface is exposed. AGG/evidence integrations should use this public API rather than import monolith-local plan modules.
+
+Typed action-intent semantic validation is host-owned. A composing host configures its verifier through the package's one-time `configureCompiledActionIntentSemanticVerifier` export; this ensures the callback is attached to the same module instance used by the public `validateExecutionPlan`. The verifier is not an authorization grant and cannot replace the separate owner-approval/dispatch gates.

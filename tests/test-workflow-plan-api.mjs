@@ -5,6 +5,7 @@ import {
   WORKFLOW_PLAN_API_METHODS,
   workflowPlanApi,
   canonicalJson,
+  configureCompiledActionIntentSemanticVerifier,
   validateExecutionPlan,
   assertTaskDependenciesMatchPlan,
   resolveTaskBatchRoute
@@ -48,4 +49,15 @@ test('batch route helper keeps non-deterministic tasks outside the deterministic
   assert.throws(() => resolveTaskBatchRoute({ schema_version: 2, batch_execution_policy: { mode: 'exempt', route: 'not-applicable' } }, {
     id: 'task_exec', execution: { deterministic: true, executor: 'ExecutionManager' }
   }), /conflicts with the immutable batch execution policy/);
+});
+
+test('host semantic verifier is injected through the same package module instance as plan validation', () => {
+  assert.equal(typeof configureCompiledActionIntentSemanticVerifier, 'function');
+  const verifier = () => {};
+  assert.equal(configureCompiledActionIntentSemanticVerifier(verifier), undefined);
+  assert.equal(configureCompiledActionIntentSemanticVerifier(verifier), undefined,
+    'repeating the identical composition callback is idempotent');
+  assert.throws(() => configureCompiledActionIntentSemanticVerifier(() => {}),
+    /already configured and cannot be replaced/,
+    'a later host cannot replace the semantic policy after package composition');
 });
