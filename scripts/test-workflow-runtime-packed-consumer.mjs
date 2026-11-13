@@ -29,7 +29,7 @@ try {
   const packed = JSON.parse(run('npm', ['pack', '--json', '--pack-destination', temporaryRoot], root, 'npm pack'));
   assert.equal(packed.length, 1);
   assert.equal(packed[0].name, '@runalith/workflow-runtime');
-  assert.equal(packed[0].version, '0.3.13');
+  assert.equal(packed[0].version, '0.3.14');
   const tarball = path.join(temporaryRoot, packed[0].filename);
   assert.ok(fs.statSync(tarball).size > 10_000);
 
@@ -64,6 +64,7 @@ try {
     const workflowSchema = await import('@runalith/workflow-runtime/schema-contract');
     const workflowCompiler = await import('@runalith/workflow-runtime/compiler');
     const resourceRecommender = await import('@runalith/workflow-runtime/resource-recommender');
+    const customWorkflowContract = await import('@runalith/workflow-runtime/custom-workflow-contract');
     const agentContracts = await import('@runalith/agent-contracts');
     const workspaceFilesystem = await import('@runalith/workspace-runtime/filesystem');
     assert.equal(fs.existsSync(${JSON.stringify(databasePath)}), false, 'package import created host database');
@@ -189,6 +190,10 @@ try {
     });
     assert.equal(resourceResult.recommendations.custom_roles_and_skills[0].role_id, 'security-reviewer');
     assert.equal(resourceResult.recommendations.custom_roles_and_skills[0].execution_authorized, false);
+    const customRequests = customWorkflowContract.getCustomWorkflowRoleLookupRequests({ workflow_id: 'packed-custom', name: 'Packed custom', description: 'Contract smoke', input_contract: ['job.request'], tasks: [{ id: 'packed-task', role_id: 'packed-role' }] });
+    assert.deepEqual(customRequests, [{ task_id: 'packed-task', role_id: 'packed-role', role_version: null }]);
+    const customDefinition = customWorkflowContract.normalizeCustomWorkflowDefinition({ workflow_id: 'packed-custom', name: 'Packed custom', description: 'Contract smoke', input_contract: ['job.request'], tasks: [{ id: 'packed-task', role_id: 'packed-role' }] }, { roleSnapshotsByTaskId: { 'packed-task': { role_id: 'packed-role', version: 2, input_contract: ['job.request'], output_artifact_type: 'implementation' } } });
+    assert.equal(customDefinition.tasks[0].role_version, 2);
     assert.equal(typeof api.workflowPlanApi.validateExecutionPlan, 'function');
     const planApi = await import('@runalith/workflow-runtime/workflow-plan');
     assert.equal(planApi.WORKFLOW_PLAN_API_VERSION, 1);

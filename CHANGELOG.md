@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.14
+
+- Expose pure custom Workflow definition normalization and dependency-DAG validation through `./custom-workflow-contract`.
+- Require caller-supplied exact-version role snapshots and publish a pure role-lookup request helper; DB role lookup, immutable version storage, preview/approval and execution-spec loading remain host-owned.
+
+
 ## 0.3.13
 
 - Expose pure read-model-based reusable Workflow resource recommendations through `./resource-recommender`.

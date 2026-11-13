@@ -13,7 +13,7 @@
   ],
   "relativeImportClosureFiles": 49,
   "additionalSupportFiles": 3,
-  "manifestEntries": 57,
+  "manifestEntries": 58,
   "files": [
     {
       "path": "index.js",
@@ -27,8 +27,8 @@
     },
     {
       "path": "package.json",
-      "sha256": "6edfaeafb7213791d0ddc010a2509cc404247e6b9d866f07d9c2406cdeb93550",
-      "sizeBytes": 4023
+      "sha256": "647a803a4b47a3ecd81af4cf70e52a2c685e6ef9a2058c4f2e7832195e4fa9c9",
+      "sizeBytes": 4166
     },
     {
       "path": "protocol/cos-ap-v1/index.js",
@@ -206,6 +206,11 @@
       "sizeBytes": 12884
     },
     {
+      "path": "src/runtime/workflow/custom-workflow-contract.js",
+      "sha256": "64bf48e92f94b124edba496f7f604e349a1c00d5f7b771b44ad13ab9af0efac5",
+      "sizeBytes": 7612
+    },
+    {
       "path": "src/runtime/workflow/definitions/engineering.js",
       "sha256": "c66cddb65c061bf228ef5f6d78cd8f12dbf635757ccae8cc0b347153bd89cdcf",
       "sizeBytes": 1482
@@ -301,5 +306,5 @@
       "sizeBytes": 9914
     }
   ],
-  "packageVersion": "0.3.13"
+  "packageVersion": "0.3.14"
 }
