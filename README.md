@@ -7,7 +7,7 @@
 
 It is a composable runtime library, not a network service or a self-running workflow platform. The host application remains responsible for authenticated identity, trust configuration, provider calls, process execution, scheduling, external side effects, and operational recovery.
 
-> **Status:** 0.3.14, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
+> **Status:** 0.3.15, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
 
 ## Scope
 
@@ -347,3 +347,7 @@ The pure `./resource-recommender` subpath exports `recommendReusableResourcesFro
 ## Custom Workflow definition contract
 
 The `./custom-workflow-contract` subpath exports `getCustomWorkflowRoleLookupRequests` and `normalizeCustomWorkflowDefinition`. The first returns bounded task-to-role/version lookup requests without accessing a database. The second validates a detached custom Workflow and dependency DAG using exact role snapshots supplied by the host. SQLite role lookup, custom Workflow version persistence, preview plan persistence, approval and execution-spec loading remain host-owned. The pure contract does not create a plan or authorize execution.
+
+## Custom role contract
+
+The ./custom-role-contract subpath exports pure custom-role allowlists, schema, normalization and fingerprinting. The caller must provide a detached skillsSnapshot loaded and validated by Agent Runtime. The package never reads paths, fetches URLs or persists role versions. SQLite immutable-version CRUD remains host-owned.

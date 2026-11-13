@@ -12,9 +12,9 @@ assert.equal(manifest.schemaVersion, 1);
 const packageJson = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
 assert.equal(manifest.packageVersion, packageJson.version, 'source manifest package version must match package.json');
 assert.equal(manifest.relativeImportClosureFiles, 49);
-assert.equal(manifest.additionalSupportFiles, 3);
+assert.equal(manifest.additionalSupportFiles, 4);
 assert.equal(manifest.manifestEntries, manifest.files.length);
-assert.equal(manifest.manifestEntries, 58);
+assert.equal(manifest.manifestEntries, 59);
 const seen = new Set();
 for (const item of manifest.files) {
   assert.equal(typeof item.path, 'string');

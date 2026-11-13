@@ -29,7 +29,7 @@ try {
   const packed = JSON.parse(run('npm', ['pack', '--json', '--pack-destination', temporaryRoot], root, 'npm pack'));
   assert.equal(packed.length, 1);
   assert.equal(packed[0].name, '@runalith/workflow-runtime');
-  assert.equal(packed[0].version, '0.3.14');
+  assert.equal(packed[0].version, '0.3.15');
   const tarball = path.join(temporaryRoot, packed[0].filename);
   assert.ok(fs.statSync(tarball).size > 10_000);
 
@@ -65,6 +65,7 @@ try {
     const workflowCompiler = await import('@runalith/workflow-runtime/compiler');
     const resourceRecommender = await import('@runalith/workflow-runtime/resource-recommender');
     const customWorkflowContract = await import('@runalith/workflow-runtime/custom-workflow-contract');
+    const customRoleContract = await import('@runalith/workflow-runtime/custom-role-contract');
     const agentContracts = await import('@runalith/agent-contracts');
     const workspaceFilesystem = await import('@runalith/workspace-runtime/filesystem');
     assert.equal(fs.existsSync(${JSON.stringify(databasePath)}), false, 'package import created host database');
@@ -194,6 +195,17 @@ try {
     assert.deepEqual(customRequests, [{ task_id: 'packed-task', role_id: 'packed-role', role_version: null }]);
     const customDefinition = customWorkflowContract.normalizeCustomWorkflowDefinition({ workflow_id: 'packed-custom', name: 'Packed custom', description: 'Contract smoke', input_contract: ['job.request'], tasks: [{ id: 'packed-task', role_id: 'packed-role' }] }, { roleSnapshotsByTaskId: { 'packed-task': { role_id: 'packed-role', version: 2, input_contract: ['job.request'], output_artifact_type: 'implementation' } } });
     assert.equal(customDefinition.tasks[0].role_version, 2);
+    const roleContract = customRoleContract.normalizeCustomRoleDefinition({
+      role_id: 'packed-custom-role', name: 'Packed custom role', description: 'Pure role contract',
+      system_prompt: 'Review typed inputs only.', input_contract: ['job.request'],
+      output_artifact_type: 'documentation', allowed_capabilities: ['documentation.write'],
+      permissions: ['workspace.read', 'artifact.create'], allowed_tools: ['workflow_get']
+    }, { skillsSnapshot: [] });
+    assert.deepEqual(roleContract.permissions, ['workspace.read', 'artifact.create']);
+    assert.equal(customRoleContract.customRoleFingerprint(roleContract).length, 64);
+    assert.equal(typeof customRoleContract.customRoleSchema, 'function');
+    assert.equal(typeof customRoleContract.loadAgentSkills, 'undefined', 'skill filesystem/network import must remain outside pure role contract');
+
     assert.equal(typeof api.workflowPlanApi.validateExecutionPlan, 'function');
     const planApi = await import('@runalith/workflow-runtime/workflow-plan');
     assert.equal(planApi.WORKFLOW_PLAN_API_VERSION, 1);

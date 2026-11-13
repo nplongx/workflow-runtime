@@ -12,8 +12,8 @@
     "src/runtime/execution-contract.js"
   ],
   "relativeImportClosureFiles": 49,
-  "additionalSupportFiles": 3,
-  "manifestEntries": 58,
+  "additionalSupportFiles": 4,
+  "manifestEntries": 59,
   "files": [
     {
       "path": "index.js",
@@ -27,8 +27,8 @@
     },
     {
       "path": "package.json",
-      "sha256": "647a803a4b47a3ecd81af4cf70e52a2c685e6ef9a2058c4f2e7832195e4fa9c9",
-      "sizeBytes": 4166
+      "sha256": "b7f50ed45ec3af834ee37464fd73567f35c5aae23aa429591114c9d76bf606ba",
+      "sizeBytes": 4297
     },
     {
       "path": "protocol/cos-ap-v1/index.js",
@@ -201,13 +201,18 @@
       "sizeBytes": 21005
     },
     {
+      "path": "src/runtime/workflow/custom-role-contract.js",
+      "sha256": "878ece7666299f38fdb3d5b113c5aff3ace1b08619c8ff1e271ba5bca0a3f24e",
+      "sizeBytes": 6316
+    },
+    {
       "path": "src/runtime/workflow/custom-roles.js",
       "sha256": "e52048c559b1c0eb7d9f9a6af25762990e04f9b24ef6136655330828d6ace02b",
       "sizeBytes": 12884
     },
     {
       "path": "src/runtime/workflow/custom-workflow-contract.js",
-      "sha256": "64bf48e92f94b124edba496f7f604e349a1c00d5f7b771b44ad13ab9af0efac5",
+      "sha256": "ef0c67820f9c3c8334f1b127aaa8de063c54bea83d07a45d91b6b28d78d6551b",
       "sizeBytes": 7612
     },
     {
@@ -306,5 +311,5 @@
       "sizeBytes": 9914
     }
   ],
-  "packageVersion": "0.3.14"
+  "packageVersion": "0.3.15"
 }

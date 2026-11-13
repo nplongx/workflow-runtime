@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.15
+
+- Expose pure custom-role schema, allowlist validation, partial-definition normalization and fingerprinting through ./custom-role-contract.
+- Require composing host to supply Agent Runtime skill snapshots; package never reads directories or fetches URLs. SQLite role-version persistence and Agent Skills ingestion remain outside this contract.
+
+
 ## 0.3.14
 
 - Expose pure custom Workflow definition normalization and dependency-DAG validation through `./custom-workflow-contract`.

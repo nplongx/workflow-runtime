@@ -28,3 +28,4 @@ The root README is the installation and quick-start entrypoint. This package has
 | Workflow plan compiler | [Compiler API](compiler.md) |
 | Reusable resource recommender | [Resource recommender](resource-recommender.md) |
 | Custom Workflow definition contract | [Custom Workflow contract](custom-workflow-contract.md) |
+| Custom role contract | Custom role contract documentation |
