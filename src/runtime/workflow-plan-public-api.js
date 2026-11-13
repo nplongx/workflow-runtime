@@ -1,3 +1,4 @@
+/** Stable, host-independent Workflow Plan API v1. */
 import {
   canonicalJson,
   validateExecutionPlan,
@@ -5,7 +6,6 @@ import {
   resolveTaskBatchRoute
 } from './workflow/plan.js';
 
-/** Stable host-facing Workflow plan contract surface for subsystem consumers. */
 export const WORKFLOW_PLAN_API_VERSION = 1;
 export const WORKFLOW_PLAN_API_METHODS = Object.freeze([
   'canonicalJson',
