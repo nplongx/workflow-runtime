@@ -22,3 +22,7 @@ Importing package entrypoints performs no database filesystem mutation. Host exp
 ## Host dependencies
 
 Trust verifier is host-provided. Production QA harness requires explicit host root or compatible source layout and keeps SHA-256 pin. COS-AP v1 source mirror keeps package self-contained.
+
+## Workflow Plan API v1
+
+The immutable execution-plan normalizer is exported from `@runalith/workflow-runtime/workflow-plan` as a frozen four-method API: canonical JSON, plan validation, persisted dependency assertion and batch-route resolution. It is pure with respect to persistence: consumers supply the plan/task values, and no database handle or generic transaction surface is exposed. AGG/evidence integrations should consume this public API rather than import the monolith-local plan module.

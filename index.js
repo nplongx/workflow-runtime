@@ -13,3 +13,13 @@ export { createExecutionPersistenceParticipant, EXECUTION_PERSISTENCE_PARTICIPAN
 export { createExecutionRequest, createExecutionResult, validateExecutionRequest, validateExecutionResult, ExecutionContractVersion, ExecutionResultStatus } from './src/runtime/execution-contract.js';
 export { configureProductionQaHarnessRoot, PRODUCTION_QA_HARNESS_SHA256, PRODUCTION_QA_SUCCESS_MARKERS } from './src/runtime/workflow/catalog/production.js';
 export * from './src/runtime/owner-approval-contract.js';
+
+export {
+  WORKFLOW_PLAN_API_VERSION,
+  WORKFLOW_PLAN_API_METHODS,
+  workflowPlanApi,
+  canonicalJson,
+  validateExecutionPlan,
+  assertTaskDependenciesMatchPlan,
+  resolveTaskBatchRoute
+} from './src/runtime/workflow-plan-public-api.js';

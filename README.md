@@ -2,7 +2,7 @@
 
 `@runalith/workflow-runtime` is a local-first, SQLite-backed runtime for durable workflow lifecycle, immutable plan binding, approvals, tasks, leases, artifacts, execution state, event history, reports and Agent Session orchestration.
 
-**Status:** GitHub-first source package `0.1.0`; pre-1.0 APIs and migration compatibility remain under review. Not published to npm.
+**Status:** GitHub-first source package `0.2.0`; pre-1.0 APIs and migration compatibility remain under review. Not published to npm.
 
 ```sh
 npm install github:nplongx/workflow-runtime
@@ -39,6 +39,24 @@ database.close();
 ```
 
 `WorkflowStoreCore` is the base Workflow store. `WorkflowStore` / `RunalithWorkflowStore` compose Agent Session API and Execution Persistence adapters on the same connection. The legacy `workflowStore` singleton is lazy: importing this package does not create directories or open a database; first property access initializes the default host store.
+
+## Workflow Plan API v1
+
+The immutable plan validator/normalizer is exposed separately from database composition:
+
+~~~js
+import {
+  workflowPlanApi,
+  validateExecutionPlan,
+  assertTaskDependenciesMatchPlan,
+  resolveTaskBatchRoute,
+} from '@runalith/workflow-runtime/workflow-plan';
+
+const validatedPlan = validateExecutionPlan(plan);
+const canonical = workflowPlanApi.canonicalJson(validatedPlan);
+~~~
+
+The API is frozen/versioned (`WORKFLOW_PLAN_API_VERSION = 1`) and exposes only four named methods: `canonicalJson`, `validateExecutionPlan`, `assertTaskDependenciesMatchPlan`, and `resolveTaskBatchRoute`. It has no SQLite, WorkflowStore or mutable persistence capability. Use this subpath for read/validation integrations that do not need the runtime store.
 
 ## Database and transaction semantics
 

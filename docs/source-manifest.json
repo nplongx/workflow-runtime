@@ -17,8 +17,8 @@
   "files": [
     {
       "path": "index.js",
-      "sha256": "938c08a59e691ae8caae2563f3cae2a82952a56b39a79dbfc290f05780f695f4",
-      "sizeBytes": 2077
+      "sha256": "bacae5934672cf64fef385b7f7ba7eafbbf1cc7ef5cfa440dafa4012016870e3",
+      "sizeBytes": 2317
     },
     {
       "path": "job-store.js",
@@ -27,8 +27,8 @@
     },
     {
       "path": "package.json",
-      "sha256": "89c1125f08cdc8229ec7ab09334a1cb76d43847f9bf463aa08ba79c171b42b68",
-      "sizeBytes": 1357
+      "sha256": "646dd98c89fae8d367c804ab7502c4c179351d26f33c7be40152a729ba00fb19",
+      "sizeBytes": 1425
     },
     {
       "path": "protocol/cos-ap-v1/index.js",
@@ -142,8 +142,8 @@
     },
     {
       "path": "src/runtime/workflow-plan-public-api.js",
-      "sha256": "60bc57442abfef078d35aa364e9e177027f9fe90520120c176397e3b0c768bc7",
-      "sizeBytes": 733
+      "sha256": "7cbd69cad3994f5df6e21d95b4ffb72701b375718d31cc98cd403a54ccb55738",
+      "sizeBytes": 705
     },
     {
       "path": "src/runtime/workflow-state-port.js",
@@ -275,5 +275,6 @@
       "sha256": "082a69623128228372c28116ff3e999e0e80ba188222e50ce37a3d936a8f521a",
       "sizeBytes": 9914
     }
-  ]
+  ],
+  "packageVersion": "0.2.0"
 }
