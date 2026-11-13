@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.4
+
+- Refresh the immutable Execution Runtime dependency to 0.1.4 so the host and Workflow Runtime share one deduplicated package version.
+- Preserve Workflow transaction ownership; GitHub Actions provider code remains an Execution Runtime adapter using injected WorkflowStatePort v2.
+
 ## 0.2.3
 
 - Refresh the immutable Execution Runtime dependency to 0.1.2, including the extracted Provider Admission owner.
