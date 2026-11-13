@@ -7,3 +7,4 @@
 - Explicit SQLite initialization and injected-connection support.
 - Versioned Workflow/Execution state ports and participants.
 - Production QA harness dependency is host-injected and digest-pinned.
+- Expanded README, architecture, database integration, terminology, source-lineage, and security documentation.
