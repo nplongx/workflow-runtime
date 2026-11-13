@@ -7,7 +7,7 @@
 
 It is a composable runtime library, not a network service or a self-running workflow platform. The host application remains responsible for authenticated identity, trust configuration, provider calls, process execution, scheduling, external side effects, and operational recovery.
 
-> **Status:** 0.2.7, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
+> **Status:** 0.2.8, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
 
 ## Scope
 
@@ -37,7 +37,7 @@ Requirements:
 - Built-in node:sqlite.
 - Local filesystem for a file-backed SQLite database.
 
-The runtime uses Node.js built-ins plus two explicit public Runalith dependencies: `@runalith/workflow-contracts` for strict JSON/DTO policy primitives and `@runalith/execution-runtime` for Execution-owned persistence stores, Provider Admission, GitHub Actions Runner Admission, provider transport, ports, participants and provider-ledger identity. COS-AP v1 remains mirrored for Workflow/MCP wire compatibility. Both dependencies are pinned to immutable GitHub commits in the lockfile; no parent application checkout is required.
+The runtime uses Node.js built-ins plus two explicit public Runalith dependencies: `@runalith/workflow-contracts` for strict JSON/DTO policy primitives and `@runalith/execution-runtime` for Execution-owned persistence stores, Provider Admission, GitHub Actions Runner Admission, provider transport, ProviderDispatchScheduler, execution observation helpers, ports, participants and provider-ledger identity. COS-AP v1 remains mirrored for Workflow/MCP wire compatibility. Both dependencies are pinned to immutable GitHub commits in the lockfile; no parent application checkout is required.
 
 Execution table DDL and SQL primitives no longer live in Workflow Runtime. Workflow imports the public Execution Runtime API and keeps only the existing transaction coordination around task/job/event state. Workflow remains the current transaction coordinator for cross-domain atomicity; the new repository does not imply an independent DB or process.
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.8
+
+- Refresh immutable Execution Runtime dependency to 0.1.8, which owns bounded exit-marker observation and pure execution-batch retry-lineage verification.
+- Keep event retrieval and Workflow transaction boundaries in Workflow Runtime / host WorkflowStatePort.
+
 ## 0.2.7
 
 - Refresh immutable Execution Runtime dependency to 0.1.7, which owns the extracted ProviderDispatchScheduler used by the legacy host scheduler adapter.
