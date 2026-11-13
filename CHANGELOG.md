@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.1
+
+- Expose pure Success Contract normalization, predicate evaluation and assessment validation through `@runalith/workflow-runtime/success-contract`.
+- Reuse strict JSON parsing from the public Workflow Contracts package.
+- Keep all durable task/artifact reads, reviewer trust, approval, event writes and Workflow terminalization in host/WorkflowStore authority.
+
 ## 0.3.0
 
 - Expose pure reviewer-artifact normalization/parsing through `@runalith/workflow-runtime/artifact-normalizer`.

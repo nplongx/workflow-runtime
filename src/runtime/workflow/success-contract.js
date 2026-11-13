@@ -1,4 +1,4 @@
-import { parseStrictJson } from '../strict-json.js';
+import { parseStrictJson } from '@runalith/workflow-contracts';
 
 const ID_PATTERN = /^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/;
 const MAX_ENTRIES = 32;

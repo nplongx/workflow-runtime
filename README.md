@@ -7,7 +7,7 @@
 
 It is a composable runtime library, not a network service or a self-running workflow platform. The host application remains responsible for authenticated identity, trust configuration, provider calls, process execution, scheduling, external side effects, and operational recovery.
 
-> **Status:** 0.3.0, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
+> **Status:** 0.3.1, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
 
 ## Scope
 
@@ -19,6 +19,7 @@ It is a composable runtime library, not a network service or a self-running work
 - Workflow definitions, role/agent contracts, plan compilation, policy/success contracts, artifact validation, and evidence normalization.
 - Immutable phase identifiers and production phase ordering through `@runalith/workflow-runtime/phases`.
 - Pure reviewer-artifact normalization and schema parsing through `@runalith/workflow-runtime/artifact-normalizer`.
+- Pure immutable Success Contract normalization and predicate/assessment validation through `@runalith/workflow-runtime/success-contract`.
 - Explicit SQLite opening or caller-supplied SQLite connection; no implicit database creation on package import.
 
 ## Non-goals
@@ -167,6 +168,26 @@ const review = parseReviewerArtifact(rawProviderText);
 ~~~
 
 This pure input utility extracts and validates the stable reviewer-artifact shape from raw provider text or nested text wrappers. It returns normalized JSON or `null`; it does not authenticate a reviewer, verify signatures, record approval, write artifacts, or authorize task completion. Trust identity, reviewer attestations and Workflow approval remain host-owned.
+
+## Success Contract evaluation
+
+~~~js
+import {
+  normalizeSuccessContract,
+  validateSuccessContract,
+  evaluateSuccessPredicate,
+  validateSuccessAssessment,
+  successContractPrompt
+} from '@runalith/workflow-runtime/success-contract';
+
+const contract = normalizeSuccessContract({ goal: 'Complete local validation.' });
+const valid = validateSuccessContract(contract);
+const predicate = evaluateSuccessPredicate({ id: 'build-complete', type: 'all_tasks_completed' }, {
+  plan: { children: [{ id: 'build' }] }, tasks: [{ metadata_json: '{"workflow_plan_task_id":"build"}', status: 'completed' }]
+});
+~~~
+
+This subpath accepts detached plan/task/artifact read models. It normalizes immutable success predicates and evaluates a supplied reviewer assessment against those inputs. It does not fetch durable task/artifact state, authenticate reviewers, grant approval, write events, or mark a workflow terminal. The host remains responsible for selecting verified active evidence and persisting the result inside the correct Workflow transaction.
 
 ## Development and validation
 

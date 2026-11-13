@@ -27,8 +27,8 @@
     },
     {
       "path": "package.json",
-      "sha256": "5bb353913e094a34238ea620f699786cfa6f5f5af3fc4e615d5f0d001e081194",
-      "sizeBytes": 1868
+      "sha256": "d049764268e32169b468b6f5df82be6cbfd9be59328b63f03d4b644c22048d98",
+      "sizeBytes": 1940
     },
     {
       "path": "protocol/cos-ap-v1/index.js",
@@ -267,8 +267,8 @@
     },
     {
       "path": "src/runtime/workflow/success-contract.js",
-      "sha256": "08253ff8d31cc98b07bfa61346711e669ed07f91813975556b5292b30f585951",
-      "sizeBytes": 19578
+      "sha256": "9362d63adf6c6c8de1fc59beb3959595bb770d78e961ca6516d33a905bd256f5",
+      "sizeBytes": 19589
     },
     {
       "path": "src/runtime/workflow/workspace-write-contract.js",
@@ -276,5 +276,5 @@
       "sizeBytes": 9914
     }
   ],
-  "packageVersion": "0.3.0"
+  "packageVersion": "0.3.1"
 }

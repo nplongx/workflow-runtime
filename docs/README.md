@@ -5,6 +5,7 @@
 | Runtime responsibilities and module map | [Architecture](architecture.md) |
 | Immutable phase identifiers and production phase ordering | [Workflow phases](phases.md) |
 | Pure reviewer-artifact normalization and schema parsing | [Reviewer artifact normalization](reviewer-artifacts.md) |
+| Pure Success Contract normalization and predicate evaluation | [Success Contracts](success-contracts.md) |
 | SQLite opening, connection ownership, migrations | [Database integration](integration.md) |
 | Workflow, execution, provider, and Agent Session terms | [Terminology](terminology.md) |
 | Upstream source, pinned files, and extraction exclusions | [Source lineage](source-lineage.md) |
