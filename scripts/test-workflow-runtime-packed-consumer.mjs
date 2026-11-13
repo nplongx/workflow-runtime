@@ -29,7 +29,7 @@ try {
   const packed = JSON.parse(run('npm', ['pack', '--json', '--pack-destination', temporaryRoot], root, 'npm pack'));
   assert.equal(packed.length, 1);
   assert.equal(packed[0].name, '@runalith/workflow-runtime');
-  assert.equal(packed[0].version, '0.2.8');
+  assert.equal(packed[0].version, '0.2.9');
   const tarball = path.join(temporaryRoot, packed[0].filename);
   assert.ok(fs.statSync(tarball).size > 10_000);
 
@@ -42,6 +42,7 @@ try {
     import fs from 'node:fs';
     import { DatabaseSync } from 'node:sqlite';
     const api = await import('@runalith/workflow-runtime');
+    const phases = await import('@runalith/workflow-runtime/phases');
     assert.equal(fs.existsSync(${JSON.stringify(databasePath)}), false, 'package import created host database');
     assert.equal(typeof api.createRunalithWorkflowStore, 'function');
     assert.equal(typeof api.createWorkflowStatePort, 'function');
@@ -51,6 +52,10 @@ try {
     assert.equal(typeof api.configureProductionQaHarnessRoot, 'function');
     assert.equal(typeof api.configureCompiledActionIntentSemanticVerifier, 'function');
     assert.equal(api.WORKFLOW_PLAN_API_VERSION, 1);
+    assert.equal(Object.isFrozen(phases.WorkflowPhase), true);
+    assert.equal(Object.isFrozen(phases.PRODUCTION_PHASES), true);
+    assert.equal(phases.WorkflowPhase.RUN_CHILDREN, 'RUN_CHILDREN');
+    assert.deepEqual(phases.PRODUCTION_PHASES, Object.values(phases.WorkflowPhase));
     assert.equal(typeof api.workflowPlanApi.validateExecutionPlan, 'function');
     const planApi = await import('@runalith/workflow-runtime/workflow-plan');
     assert.equal(planApi.WORKFLOW_PLAN_API_VERSION, 1);

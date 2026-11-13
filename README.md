@@ -7,7 +7,7 @@
 
 It is a composable runtime library, not a network service or a self-running workflow platform. The host application remains responsible for authenticated identity, trust configuration, provider calls, process execution, scheduling, external side effects, and operational recovery.
 
-> **Status:** 0.2.8, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
+> **Status:** 0.2.9, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
 
 ## Scope
 
@@ -17,6 +17,7 @@ It is a composable runtime library, not a network service or a self-running work
 - Provider run and dispatch-intent records, including unresolved-outcome and reconciliation state.
 - Agent Session records, access grants, message queues, delivery claims, receipts, and lifecycle hooks.
 - Workflow definitions, role/agent contracts, plan compilation, policy/success contracts, artifact validation, and evidence normalization.
+- Immutable phase identifiers and production phase ordering through `@runalith/workflow-runtime/phases`.
 - Explicit SQLite opening or caller-supplied SQLite connection; no implicit database creation on package import.
 
 ## Non-goals
@@ -140,6 +141,20 @@ Owner-approval contract constants and canonical serialization are included, but 
 - [Security policy](SECURITY.md)
 - [Changelog](CHANGELOG.md)
 - [Pinned source manifest](docs/source-manifest.json)
+
+## Workflow phase constants
+
+Import the immutable vocabulary from the explicit subpath:
+
+~~~js
+import { WorkflowPhase, PRODUCTION_PHASES } from '@runalith/workflow-runtime/phases';
+
+if (runtime.phase === WorkflowPhase.RUN_CHILDREN) {
+  // Host/scheduler owns the decision and any resulting side effects.
+}
+~~~
+
+`WorkflowPhase` and `PRODUCTION_PHASES` are frozen constants, not state-machine executors. The package exposes the exact source already used internally by Workflow definitions; it does not authorize or perform phase transitions. Transition persistence and transaction ownership remain in Workflow Runtime/host WorkflowStore.
 
 ## Development and validation
 

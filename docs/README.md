@@ -3,6 +3,7 @@
 | Topic | Document |
 |---|---|
 | Runtime responsibilities and module map | [Architecture](architecture.md) |
+| Immutable phase identifiers and production phase ordering | [Workflow phases](phases.md) |
 | SQLite opening, connection ownership, migrations | [Database integration](integration.md) |
 | Workflow, execution, provider, and Agent Session terms | [Terminology](terminology.md) |
 | Upstream source, pinned files, and extraction exclusions | [Source lineage](source-lineage.md) |

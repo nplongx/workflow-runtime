@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.9
+
+- Export the immutable Workflow phase vocabulary through the explicit `./phases` public subpath.
+- Keep phase identifiers and production phase ordering byte-identical to the existing package-owned source.
+- Preserve all Workflow lifecycle, state mutation, approval, task, lease and event authority in Workflow Runtime.
+
 ## 0.2.8
 
 - Refresh immutable Execution Runtime dependency to 0.1.8, which owns bounded exit-marker observation and pure execution-batch retry-lineage verification.
