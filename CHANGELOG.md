@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0
+
+- Expose pure reviewer-artifact normalization/parsing through `@runalith/workflow-runtime/artifact-normalizer`.
+- Make the normalizer consume the public Workflow Contracts strict JSON parser.
+- Preserve reviewer schema validation; no reviewer identity, approval, task lifecycle, database or transaction authority moves.
+
 ## 0.2.9
 
 - Export the immutable Workflow phase vocabulary through the explicit `./phases` public subpath.

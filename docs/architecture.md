@@ -47,6 +47,7 @@ The port interfaces are boundaries inside one process and one database. They are
 | src/runtime/agent-session-api.js | Versioned Agent Session API and lifecycle participant contracts. | In-process API; not a transport or identity provider. |
 | src/runtime/workflow/ | Workflow definitions/catalogs, roles and agent contracts, plan compiler, policy/success contracts, artifacts, evidence, and workspace-write contracts. | Definitions and validators do not independently authorize host actions. |
 | src/runtime/workflow/phases.js | Frozen Workflow phase identifiers and production phase order. | Public `./phases` subpath exposes constants only; it does not perform or authorize transitions. |
+| src/runtime/workflow/artifact-normalizer.js | Pure parsing/normalization of reviewer artifact text into the required review DTO. | Public `./artifact-normalizer` subpath; consumes Workflow Contracts strict JSON parser and has no trust, approval, DB or lifecycle authority. |
 | src/runtime/owner-approval-contract.js | Versioned owner-approval vocabulary and canonical JSON/digest helpers. | No private keys, trust roots, or signature verifier. |
 | src/runtime/workflow/catalog/production.js | Production workflow task definitions and host QA harness acceptance checks. | Harness files are host-supplied and digest-pinned. |
 

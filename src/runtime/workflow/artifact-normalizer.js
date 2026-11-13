@@ -1,4 +1,4 @@
-import { parseStrictJson } from '../strict-json.js';
+import { parseStrictJson } from '@runalith/workflow-contracts';
 export function normalizeReviewerArtifact(rawContent) {
   const queue = [String(rawContent ?? '')];
   const seen = new Set();

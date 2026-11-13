@@ -7,7 +7,7 @@
 
 It is a composable runtime library, not a network service or a self-running workflow platform. The host application remains responsible for authenticated identity, trust configuration, provider calls, process execution, scheduling, external side effects, and operational recovery.
 
-> **Status:** 0.2.9, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
+> **Status:** 0.3.0, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
 
 ## Scope
 
@@ -18,6 +18,7 @@ It is a composable runtime library, not a network service or a self-running work
 - Agent Session records, access grants, message queues, delivery claims, receipts, and lifecycle hooks.
 - Workflow definitions, role/agent contracts, plan compilation, policy/success contracts, artifact validation, and evidence normalization.
 - Immutable phase identifiers and production phase ordering through `@runalith/workflow-runtime/phases`.
+- Pure reviewer-artifact normalization and schema parsing through `@runalith/workflow-runtime/artifact-normalizer`.
 - Explicit SQLite opening or caller-supplied SQLite connection; no implicit database creation on package import.
 
 ## Non-goals
@@ -155,6 +156,17 @@ if (runtime.phase === WorkflowPhase.RUN_CHILDREN) {
 ~~~
 
 `WorkflowPhase` and `PRODUCTION_PHASES` are frozen constants, not state-machine executors. The package exposes the exact source already used internally by Workflow definitions; it does not authorize or perform phase transitions. Transition persistence and transaction ownership remain in Workflow Runtime/host WorkflowStore.
+
+## Reviewer artifact normalization
+
+~~~js
+import { normalizeReviewerArtifact, parseReviewerArtifact } from '@runalith/workflow-runtime/artifact-normalizer';
+
+const normalizedJson = normalizeReviewerArtifact(rawProviderText);
+const review = parseReviewerArtifact(rawProviderText);
+~~~
+
+This pure input utility extracts and validates the stable reviewer-artifact shape from raw provider text or nested text wrappers. It returns normalized JSON or `null`; it does not authenticate a reviewer, verify signatures, record approval, write artifacts, or authorize task completion. Trust identity, reviewer attestations and Workflow approval remain host-owned.
 
 ## Development and validation
 

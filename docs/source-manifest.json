@@ -27,8 +27,8 @@
     },
     {
       "path": "package.json",
-      "sha256": "c985616ed5e5fe2381477190124d2bec7cc346c096e56db31dd651719d80e546",
-      "sizeBytes": 1790
+      "sha256": "5bb353913e094a34238ea620f699786cfa6f5f5af3fc4e615d5f0d001e081194",
+      "sizeBytes": 1868
     },
     {
       "path": "protocol/cos-ap-v1/index.js",
@@ -167,8 +167,8 @@
     },
     {
       "path": "src/runtime/workflow/artifact-normalizer.js",
-      "sha256": "153516e7efe60fb0466cdec1817fc7efc8924207921fcc50c0725da2991b18c7",
-      "sizeBytes": 2754
+      "sha256": "2edad32996de257e0a3f918de63fd7efe17c00487f2c36f1c4096d31fcb39d06",
+      "sizeBytes": 2765
     },
     {
       "path": "src/runtime/workflow/artifacts.js",
@@ -276,5 +276,5 @@
       "sizeBytes": 9914
     }
   ],
-  "packageVersion": "0.2.9"
+  "packageVersion": "0.3.0"
 }
