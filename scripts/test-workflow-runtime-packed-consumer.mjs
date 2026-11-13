@@ -29,7 +29,7 @@ try {
   const packed = JSON.parse(run('npm', ['pack', '--json', '--pack-destination', temporaryRoot], root, 'npm pack'));
   assert.equal(packed.length, 1);
   assert.equal(packed[0].name, '@runalith/workflow-runtime');
-  assert.equal(packed[0].version, '0.3.5');
+  assert.equal(packed[0].version, '0.3.6');
   const tarball = path.join(temporaryRoot, packed[0].filename);
   assert.ok(fs.statSync(tarball).size > 10_000);
 
@@ -48,6 +48,9 @@ try {
     const roles = await import('@runalith/workflow-runtime/roles');
     const roleProfiles = await import('@runalith/workflow-runtime/role-profiles');
     const evidence = await import('@runalith/workflow-runtime/evidence');
+    const workspaceWrite = await import('@runalith/workflow-runtime/workspace-write-contract');
+    const agentContracts = await import('@runalith/agent-contracts');
+    const workspaceFilesystem = await import('@runalith/workspace-runtime/filesystem');
     assert.equal(fs.existsSync(${JSON.stringify(databasePath)}), false, 'package import created host database');
     assert.equal(typeof api.createRunalithWorkflowStore, 'function');
     assert.equal(typeof api.createWorkflowStatePort, 'function');
@@ -122,6 +125,16 @@ try {
     assert.equal(evidence.executionEvidence(evidenceTask, result, plannedExecution).taskId, evidenceTask.task_id);
     assert.equal(evidence.validateEvidenceContract(evidenceTask, result, plannedExecution).valid, true);
     assert.equal(evidence.validateEvidenceContract({ ...evidenceTask, execution_exit_code: 1 }, result, plannedExecution).valid, false);
+    assert.equal(typeof workspaceWrite.normalizeWorkspaceWriteContract, 'function');
+    assert.equal(typeof workspaceWrite.pathIsWithinWorkspaceWriteScope, 'function');
+    assert.equal(typeof workspaceWrite.workspaceWriteScopeForRole, 'function');
+    assert.equal(workspaceWrite.normalizeWorkspaceWriteContract({
+      workflowId: 'standard-engineering', workflowVersion: 3, workspace: process.cwd(),
+      requiredOperations: [], scopes: []
+    }), null);
+    assert.equal(agentContracts.getAgentContract('engineer').id, 'agent.engineer');
+    assert.equal(typeof workspaceFilesystem.openDirectoryWithin, 'function');
+    assert.equal(typeof workspaceFilesystem.lstatWithin, 'function');
     assert.equal(typeof api.workflowPlanApi.validateExecutionPlan, 'function');
     const planApi = await import('@runalith/workflow-runtime/workflow-plan');
     assert.equal(planApi.WORKFLOW_PLAN_API_VERSION, 1);

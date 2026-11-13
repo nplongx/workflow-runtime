@@ -27,8 +27,8 @@
     },
     {
       "path": "package.json",
-      "sha256": "612c929ce9edae5e5b1de010b509be15b05fb2cfe03cd63d5c541acb463d8a2f",
-      "sizeBytes": 2243
+      "sha256": "3fc98da1e643d460448072a34ce98617a6eb93deffe51422afd7f54f57e95f86",
+      "sizeBytes": 2614
     },
     {
       "path": "protocol/cos-ap-v1/index.js",
@@ -37,8 +37,8 @@
     },
     {
       "path": "src/runtime/agent-contracts-public-api.js",
-      "sha256": "9fdd33f4b1dc90fb79c24f3b34b2d5ff9e209ace86e312bbb10407c7c47b920c",
-      "sizeBytes": 11416
+      "sha256": "2e8d0c6d8770263a2b1fc981f977c2a7859a7a3ae9bf9c9804eedccc52c3329d",
+      "sizeBytes": 154
     },
     {
       "path": "src/runtime/agent-session-api.js",
@@ -117,8 +117,8 @@
     },
     {
       "path": "src/runtime/secure-filesystem.js",
-      "sha256": "007947ab76be75d1eadf2382bcc0a7838134de7b6b37143d42635387e697d59a",
-      "sizeBytes": 13469
+      "sha256": "f6c14419db89d2bb68281b9bbb109b20483737594f1516aeab9a415c8c4eb23b",
+      "sizeBytes": 398
     },
     {
       "path": "src/runtime/strict-json.js",
@@ -276,5 +276,5 @@
       "sizeBytes": 9914
     }
   ],
-  "packageVersion": "0.3.5"
+  "packageVersion": "0.3.6"
 }

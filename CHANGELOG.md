@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.6
+
+- Expose Workflow's bounded `workspace.write` scope normalizer and role-scope lookup through `./workspace-write-contract`; host persistence, approval and file mutation remain separate owners.
+- Delegate Agent role/action-intent vocabulary to the pinned `@runalith/agent-contracts` root API and descriptor-anchored filesystem primitives to the pinned `@runalith/workspace-runtime/filesystem` API.
+- Keep Workflow Runtime's previous internal import paths as compatibility re-exports; no capability grant, approval or workspace mutation API is added.
+
 ## 0.3.5
 
 - Delegate Workflow Runtime's internal artifact compatibility module to the pinned `@runalith/workflow-contracts` root API.

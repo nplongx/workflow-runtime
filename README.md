@@ -7,7 +7,7 @@
 
 It is a composable runtime library, not a network service or a self-running workflow platform. The host application remains responsible for authenticated identity, trust configuration, provider calls, process execution, scheduling, external side effects, and operational recovery.
 
-> **Status:** 0.3.5, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
+> **Status:** 0.3.6, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
 
 ## Scope
 
@@ -24,6 +24,8 @@ It is a composable runtime library, not a network service or a self-running work
 - Immutable built-in Workflow role capability vocabulary and validation through `@runalith/workflow-runtime/roles`.
 - Version-pinned custom role profile bindings, profile hashes and task overlay validation through `@runalith/workflow-runtime/role-profiles`.
 - Pure durable execution-evidence construction and validation through `@runalith/workflow-runtime/evidence`.
+- Workflow `workspace.write` contract normalization and read-only scope validation through `@runalith/workflow-runtime/workspace-write-contract`.
+- Canonical Agent role/action-intent vocabulary comes from Agent Contracts; descriptor-anchored filesystem operations come from Workspace Runtime.
 - Explicit SQLite opening or caller-supplied SQLite connection; no implicit database creation on package import.
 
 ## Non-goals
@@ -44,7 +46,7 @@ Requirements:
 - Built-in node:sqlite.
 - Local filesystem for a file-backed SQLite database.
 
-The runtime uses Node.js built-ins plus explicit public Runalith dependencies: `@runalith/agent-runtime` for Agent Skills ingestion, `@runalith/workflow-contracts` for strict JSON/DTO policy primitives, and `@runalith/execution-runtime` for Execution-owned persistence stores, Provider Admission, GitHub Actions Runner Admission, provider transport, ProviderDispatchScheduler, execution observation helpers, ports, participants and provider-ledger identity. COS-AP v1 remains mirrored for Workflow/MCP wire compatibility. Dependencies are pinned to immutable GitHub commits in the lockfile; no parent application checkout is required.
+The runtime uses Node.js built-ins plus explicit public Runalith dependencies: `@runalith/agent-contracts` for canonical Agent role/action-intent vocabulary, `@runalith/agent-runtime` for Agent Skills ingestion, `@runalith/workspace-runtime` for descriptor-anchored filesystem primitives, `@runalith/workflow-contracts` for strict JSON/artifact DTO/JCS policy primitives, and `@runalith/execution-runtime` for Execution-owned persistence stores, Provider Admission, GitHub Actions Runner Admission, provider transport, ProviderDispatchScheduler, execution observation helpers, ports, participants and provider-ledger identity. COS-AP v1 remains mirrored for Workflow/MCP wire compatibility. Dependencies are pinned to immutable GitHub commits in the lockfile; no parent application checkout is required.
 
 Execution table DDL and SQL primitives no longer live in Workflow Runtime. Workflow imports the public Execution Runtime API and keeps only the existing transaction coordination around task/job/event state. Workflow remains the current transaction coordinator for cross-domain atomicity; the new repository does not imply an independent DB or process.
 
@@ -252,6 +254,27 @@ const verdict = validateEvidenceContract(task, { outcome: 'success', content }, 
 ~~~
 
 This API accepts detached task/result/plan objects. It validates durable task state, exact exit status/code, `ExecutionManager` identity, session and attempt binding, immutable plan command identity, canonical result bytes and evidence markers. It does not query a database, retrieve provider artifacts, independently attest a worker/provider, persist results or authorize terminalization. Callers select trusted active rows and retain Workflow transaction/persistence authority. A valid result proves internal consistency of supplied evidence, not independent provider attestation.
+
+## Scoped workspace-write contract
+
+~~~js
+import {
+  WorkspaceWriteContractError,
+  normalizeWorkspaceWriteContract,
+  pathIsWithinWorkspaceWriteScope,
+  workspaceWriteScopeForRole
+} from '@runalith/workflow-runtime/workspace-write-contract';
+
+const contract = normalizeWorkspaceWriteContract({
+  workflowId: 'standard-engineering',
+  workflowVersion: 3,
+  workspace: approvedWorkspace,
+  requiredOperations: ['workspace.write'],
+  scopes: [{ role: 'engineer', paths: [{ path: 'src', kind: 'directory' }] }]
+});
+~~~
+
+The API accepts only `standard-engineering@3+`, requires the declared `workspace.write` operation, allows only `engineer`/`writer` scopes, validates normalized workspace-relative paths, and checks existing file/directory targets using Workspace Runtime's descriptor-anchored filesystem. It rejects symlinks, noncanonical/traversing paths, unsupported workflows/roles/operations and overlapping/duplicate scopes. The normalizer is read-only: it does not mutate files, create receipts, verify current owner approval, grant executor capabilities or authorize a task. `WorkspaceWriteCapabilityService` and WorkflowStore retain plan/approval rechecks, writer-lock fencing, atomic file replacement, receipts, events and recovery.
 
 ## Development and validation
 
