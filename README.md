@@ -7,7 +7,7 @@
 
 It is a composable runtime library, not a network service or a self-running workflow platform. The host application remains responsible for authenticated identity, trust configuration, provider calls, process execution, scheduling, external side effects, and operational recovery.
 
-> **Status:** 0.3.1, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
+> **Status:** 0.3.2, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
 
 ## Scope
 
@@ -20,6 +20,7 @@ It is a composable runtime library, not a network service or a self-running work
 - Immutable phase identifiers and production phase ordering through `@runalith/workflow-runtime/phases`.
 - Pure reviewer-artifact normalization and schema parsing through `@runalith/workflow-runtime/artifact-normalizer`.
 - Pure immutable Success Contract normalization and predicate/assessment validation through `@runalith/workflow-runtime/success-contract`.
+- Immutable built-in Workflow role capability vocabulary and validation through `@runalith/workflow-runtime/roles`.
 - Explicit SQLite opening or caller-supplied SQLite connection; no implicit database creation on package import.
 
 ## Non-goals
@@ -188,6 +189,21 @@ const predicate = evaluateSuccessPredicate({ id: 'build-complete', type: 'all_ta
 ~~~
 
 This subpath accepts detached plan/task/artifact read models. It normalizes immutable success predicates and evaluates a supplied reviewer assessment against those inputs. It does not fetch durable task/artifact state, authenticate reviewers, grant approval, write events, or mark a workflow terminal. The host remains responsible for selecting verified active evidence and persisting the result inside the correct Workflow transaction.
+
+## Built-in role contracts
+
+~~~js
+import {
+  TaskCapability,
+  ROLE_CONTRACTS,
+  getRoleContract,
+  validateRoleContract
+} from '@runalith/workflow-runtime/roles';
+
+const engineer = validateRoleContract('engineer', { capability: TaskCapability.CODE_MODIFY });
+~~~
+
+The subpath exposes frozen task capability values and the built-in Workflow role contract map. `getRoleContract()` resolves the corresponding public Agent Contract; `validateRoleContract()` checks requested capability/executor constraints. These values describe workflow roles; they do not assign roles, authenticate agents, grant runtime capabilities, approve work, or dispatch tasks. Workflow plan/authorization and host tool registration remain authoritative.
 
 ## Development and validation
 

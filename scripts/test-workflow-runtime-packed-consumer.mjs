@@ -29,7 +29,7 @@ try {
   const packed = JSON.parse(run('npm', ['pack', '--json', '--pack-destination', temporaryRoot], root, 'npm pack'));
   assert.equal(packed.length, 1);
   assert.equal(packed[0].name, '@runalith/workflow-runtime');
-  assert.equal(packed[0].version, '0.3.1');
+  assert.equal(packed[0].version, '0.3.2');
   const tarball = path.join(temporaryRoot, packed[0].filename);
   assert.ok(fs.statSync(tarball).size > 10_000);
 
@@ -45,6 +45,7 @@ try {
     const phases = await import('@runalith/workflow-runtime/phases');
     const artifactNormalizer = await import('@runalith/workflow-runtime/artifact-normalizer');
     const successContracts = await import('@runalith/workflow-runtime/success-contract');
+    const roles = await import('@runalith/workflow-runtime/roles');
     assert.equal(fs.existsSync(${JSON.stringify(databasePath)}), false, 'package import created host database');
     assert.equal(typeof api.createRunalithWorkflowStore, 'function');
     assert.equal(typeof api.createWorkflowStatePort, 'function');
@@ -71,6 +72,10 @@ try {
     assert.deepEqual(successContracts.validateSuccessAssessment(successContract, {
       goal_status:'achieved',summary:'All work complete.',criteria:[{id:'all-done',status:'met',evidence_refs:[]}],constraints:[]
     }, {plan:{children:[{id:'build'}]},tasks:[{status:'completed',metadata_json:'{"workflow_plan_task_id":"build"}'}]}), {valid:true,errors:[]});
+    assert.equal(Object.isFrozen(roles.TaskCapability), true);
+    assert.equal(Object.isFrozen(roles.ROLE_CONTRACTS), true);
+    assert.equal(roles.validateRoleContract('engineer', { capability: roles.TaskCapability.CODE_MODIFY }).id, 'agent.engineer');
+    assert.equal(roles.getRoleContract('productowner').id, 'agent.product-owner');
     assert.equal(typeof api.workflowPlanApi.validateExecutionPlan, 'function');
     const planApi = await import('@runalith/workflow-runtime/workflow-plan');
     assert.equal(planApi.WORKFLOW_PLAN_API_VERSION, 1);

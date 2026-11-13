@@ -49,6 +49,7 @@ The port interfaces are boundaries inside one process and one database. They are
 | src/runtime/workflow/phases.js | Frozen Workflow phase identifiers and production phase order. | Public `./phases` subpath exposes constants only; it does not perform or authorize transitions. |
 | src/runtime/workflow/artifact-normalizer.js | Pure parsing/normalization of reviewer artifact text into the required review DTO. | Public `./artifact-normalizer` subpath; consumes Workflow Contracts strict JSON parser and has no trust, approval, DB or lifecycle authority. |
 | src/runtime/workflow/success-contract.js | Normalize immutable success predicates; evaluate detached plan/task/artifact data and reviewer assessment. | Public `./success-contract` subpath; caller supplies all read models; no DB, reviewer trust, approval, event writes or terminalization. |
+| src/runtime/workflow/roles.js | Frozen task capability vocabulary and built-in Workflow role contracts. | Public `./roles` subpath exposes descriptors/validation only; assignment, authorization, approval and dispatch remain host/Workflow-owned. |
 | src/runtime/owner-approval-contract.js | Versioned owner-approval vocabulary and canonical JSON/digest helpers. | No private keys, trust roots, or signature verifier. |
 | src/runtime/workflow/catalog/production.js | Production workflow task definitions and host QA harness acceptance checks. | Harness files are host-supplied and digest-pinned. |
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.2
+
+- Expose immutable Workflow task-capability constants and built-in role contract validation through `@runalith/workflow-runtime/roles`.
+- Keep role vocabulary and contract definitions byte-identical to the package-owned implementation already used by Workflow catalogs.
+- No database, role assignment, approval, tool grant, dispatch or execution authority is introduced by the public constants API.
+
 ## 0.3.1
 
 - Expose pure Success Contract normalization, predicate evaluation and assessment validation through `@runalith/workflow-runtime/success-contract`.
