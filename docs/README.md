@@ -27,4 +27,3 @@ The root README is the installation and quick-start entrypoint. This package has
 | Workflow schema contract | [Workflow schema contract](schema-contract.md) |
 | Workflow plan compiler | [Compiler API](compiler.md) |
 | Reusable resource recommender | [Resource recommender](resource-recommender.md) |
-| Reusable resource recommender | [Resource recommender](resource-recommender.md) |
