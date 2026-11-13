@@ -7,7 +7,7 @@
 
 It is a composable runtime library, not a network service or a self-running workflow platform. The host application remains responsible for authenticated identity, trust configuration, provider calls, process execution, scheduling, external side effects, and operational recovery.
 
-> **Status:** 0.2.4, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
+> **Status:** 0.2.5, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
 
 ## Scope
 

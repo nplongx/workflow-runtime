@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.5
+
+- Refresh the immutable Execution Runtime dependency to 0.1.5, which now contains the deterministic in-memory runner provider used by the legacy M11 host adapter.
+- Preserve Workflow transaction ownership and same-connection fences; no Workflow task/lease/event API moved into Execution Runtime.
+
 ## 0.2.4
 
 - Refresh the immutable Execution Runtime dependency to 0.1.4 so the host and Workflow Runtime share one deduplicated package version.
