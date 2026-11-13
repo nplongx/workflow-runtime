@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.6
+
+- Refresh immutable Execution Runtime dependency to 0.1.6 so Workflow Runtime shares the host’s exact provider-adapter package version.
+- Keep Workflow lifecycle, lease, event and cross-domain transaction authority in Workflow Runtime; Gateway Specialist Adapter consumes WorkflowStatePort v2.
+
 ## 0.2.5
 
 - Refresh the immutable Execution Runtime dependency to 0.1.5, which now contains the deterministic in-memory runner provider used by the legacy M11 host adapter.
