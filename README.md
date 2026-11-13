@@ -7,7 +7,7 @@
 
 It is a composable runtime library, not a network service or a self-running workflow platform. The host application remains responsible for authenticated identity, trust configuration, provider calls, process execution, scheduling, external side effects, and operational recovery.
 
-> **Status:** 0.3.8, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
+> **Status:** 0.3.9, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
 
 ## Scope
 
@@ -27,6 +27,7 @@ It is a composable runtime library, not a network service or a self-running work
 - Workflow `workspace.write` contract normalization and read-only scope validation through `@runalith/workflow-runtime/workspace-write-contract`.
 - Compiled Agent Contract structure checks and one-time AGG semantic-verifier injection through `@runalith/workflow-runtime/agent-contracts`; AGG semantic implementation remains injected by the host.
 - Immutable built-in Workflow descriptors through `./workflow-definitions/*` and standard/engineering/hybrid task-spec builders through `./workflow-catalog/*`; production QA harness catalog remains host-bound.
+- Read-only review-recovery compatibility checks through `./recovery-compatibility` and the structured Workflow tool error envelope through `./tool-errors`.
 - Canonical Agent role/action-intent vocabulary comes from Agent Contracts; descriptor-anchored filesystem operations come from Workspace Runtime.
 - Explicit SQLite opening or caller-supplied SQLite connection; no implicit database creation on package import.
 
@@ -322,3 +323,7 @@ configureCompiledActionIntentSemanticVerifier(hostOwnedSemanticVerifier);
 ~~~
 
 The callback is an integration port, not an authorization grant. It cannot be replaced after initial configuration. The package keeps structural validation; the host retains semantic policy and all approval/dispatch authority.
+
+## Recovery compatibility and Workflow tool errors
+
+See [recovery compatibility and Workflow tool errors](docs/recovery-and-errors.md) for import examples and authority boundaries. The compatibility result is not approval or a retry grant.

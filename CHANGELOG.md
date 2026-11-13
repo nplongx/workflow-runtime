@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.9
+
+- Expose pure review-driven recovery compatibility classification through `./recovery-compatibility`. It reports supported plan/workflow state only; host approval, state reads, reconciliation and recovery execution remain authoritative.
+- Expose the structured `WorkflowToolError` contract through `./tool-errors`; its retryability field does not grant retry authority.
+- Preserve the existing host module exports and error fields; no persistence, transaction, approval or dispatch authority moves.
+
 ## 0.3.8
 
 - Expose immutable Workflow definitions and deterministic task-catalog spec builders through explicit `./workflow-definitions/*` and `./workflow-catalog/*` subpaths.

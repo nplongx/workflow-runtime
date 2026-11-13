@@ -29,7 +29,7 @@ try {
   const packed = JSON.parse(run('npm', ['pack', '--json', '--pack-destination', temporaryRoot], root, 'npm pack'));
   assert.equal(packed.length, 1);
   assert.equal(packed[0].name, '@runalith/workflow-runtime');
-  assert.equal(packed[0].version, '0.3.8');
+  assert.equal(packed[0].version, '0.3.9');
   const tarball = path.join(temporaryRoot, packed[0].filename);
   assert.ok(fs.statSync(tarball).size > 10_000);
 
@@ -58,6 +58,8 @@ try {
     const engineeringCatalog = await import('@runalith/workflow-runtime/workflow-catalog/engineering');
     const hybridCatalog = await import('@runalith/workflow-runtime/workflow-catalog/hybrid-engineering');
     const standardEngineeringCatalog = await import('@runalith/workflow-runtime/workflow-catalog/standard-engineering');
+    const recoveryCompatibility = await import('@runalith/workflow-runtime/recovery-compatibility');
+    const workflowErrors = await import('@runalith/workflow-runtime/tool-errors');
     const agentContracts = await import('@runalith/agent-contracts');
     const workspaceFilesystem = await import('@runalith/workspace-runtime/filesystem');
     assert.equal(fs.existsSync(${JSON.stringify(databasePath)}), false, 'package import created host database');
@@ -156,6 +158,10 @@ try {
     assert.ok(engineeringCatalog.engineeringTaskSpecs('/tmp').length > 0);
     assert.ok(hybridCatalog.hybridEngineeringTaskSpecs('/tmp').length > 0);
     assert.ok(standardEngineeringCatalog.standardEngineeringTaskSpecs('/tmp').length > 0);
+    assert.equal(recoveryCompatibility.supportsReviewDrivenRecovery({ workflow_id: 'standard-engineering', workflow_version: 2 }), true);
+    assert.equal(recoveryCompatibility.classifyReviewRecovery({ plan: { workflow_id: 'standard-engineering', workflow_version: 3 }, job: { state: 'EXECUTING', status: 'active' } }).supported, true);
+    assert.equal(typeof workflowErrors.WorkflowToolError, 'function');
+    assert.equal(workflowErrors.isWorkflowToolError(new workflowErrors.WorkflowToolError('packed consumer')), true);
     assert.equal(typeof api.workflowPlanApi.validateExecutionPlan, 'function');
     const planApi = await import('@runalith/workflow-runtime/workflow-plan');
     assert.equal(planApi.WORKFLOW_PLAN_API_VERSION, 1);
