@@ -22,3 +22,5 @@
 Recommended reading order: architecture, integration, terminology, then the security policy before connecting an approval verifier or persistent host database.
 
 The root README is the installation and quick-start entrypoint. This package has no separate daemon or deployment manifest.
+
+| Policy Contract API | [Policy Contract](policy-contract.md) |

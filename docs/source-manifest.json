@@ -13,7 +13,7 @@
   ],
   "relativeImportClosureFiles": 49,
   "additionalSupportFiles": 2,
-  "manifestEntries": 54,
+  "manifestEntries": 55,
   "files": [
     {
       "path": "index.js",
@@ -27,8 +27,8 @@
     },
     {
       "path": "package.json",
-      "sha256": "4d90e2a2f64073d4e1db63d6a87d3e03728ef2f06afadc647429e6ddb99aab11",
-      "sizeBytes": 3616
+      "sha256": "07b3be566c125cc85d2f6481ddadcbc894c566cdfa6fabc0072b6d48be65d355",
+      "sizeBytes": 3698
     },
     {
       "path": "protocol/cos-ap-v1/index.js",
@@ -246,6 +246,11 @@
       "sizeBytes": 23246
     },
     {
+      "path": "src/runtime/workflow/policy-contract-public-api.js",
+      "sha256": "07e92401e72dc665a95194e001252759ba6a145f987b2b6bb84abd6d2e336b05",
+      "sizeBytes": 501
+    },
+    {
       "path": "src/runtime/workflow/policy-contract.js",
       "sha256": "cccb834047d97fbd1f36741a6b466baf03e83e9a480402e5d85a283ada921b89",
       "sizeBytes": 51358
@@ -286,5 +291,5 @@
       "sizeBytes": 9914
     }
   ],
-  "packageVersion": "0.3.9"
+  "packageVersion": "0.3.10"
 }

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.10
+
+- Expose curated `./policy-contract` subpath for pure policy normalization, immutable snapshot/hash validation, success-contract composition, detached row inspection, rule catalog and validation-profile task materialization.
+- Keep SQLite policy creation/update, attachment, event and violation persistence out of the public pure API; WorkflowStore retains database and transaction authority.
+
+
 ## 0.3.9
 
 - Expose pure review-driven recovery compatibility classification through `./recovery-compatibility`. It reports supported plan/workflow state only; host approval, state reads, reconciliation and recovery execution remain authoritative.

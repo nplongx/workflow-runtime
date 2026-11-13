@@ -1,6 +1,6 @@
 {
   "name": "@runalith/workflow-runtime",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "description": "Local-first, SQLite-backed durable workflow lifecycle and agent-session runtime.",
   "license": "MIT",
   "type": "module",
@@ -28,7 +28,8 @@
     "./workflow-catalog/hybrid-engineering": "./src/runtime/workflow/catalog/hybrid-engineering.js",
     "./workflow-catalog/standard-engineering": "./src/runtime/workflow/catalog/standard-engineering.js",
     "./recovery-compatibility": "./src/runtime/workflow/recovery-compatibility.js",
-    "./tool-errors": "./src/runtime/workflow/tool-errors.js"
+    "./tool-errors": "./src/runtime/workflow/tool-errors.js",
+    "./policy-contract": "./src/runtime/workflow/policy-contract-public-api.js"
   },
   "files": [
     "index.js",

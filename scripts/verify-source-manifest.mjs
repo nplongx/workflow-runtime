@@ -14,6 +14,7 @@ assert.equal(manifest.packageVersion, packageJson.version, 'source manifest pack
 assert.equal(manifest.relativeImportClosureFiles, 49);
 assert.equal(manifest.additionalSupportFiles, 2);
 assert.equal(manifest.manifestEntries, manifest.files.length);
+assert.equal(manifest.manifestEntries, 55);
 const seen = new Set();
 for (const item of manifest.files) {
   assert.equal(typeof item.path, 'string');
