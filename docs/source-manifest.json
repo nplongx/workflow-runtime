@@ -27,7 +27,7 @@
     },
     {
       "path": "package.json",
-      "sha256": "4ed1310baadd94017bbc3750fad1539dc63bfdefe4a7d43be95755cda6459713",
+      "sha256": "44e3806389c4a73cb55c6b74c25743f6fd529188543d9ca9a98c75dac4dd5ec5",
       "sizeBytes": 1738
     },
     {
@@ -276,5 +276,5 @@
       "sizeBytes": 9914
     }
   ],
-  "packageVersion": "0.2.6"
+  "packageVersion": "0.2.7"
 }

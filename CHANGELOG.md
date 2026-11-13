@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.7
+
+- Refresh immutable Execution Runtime dependency to 0.1.7, which owns the extracted ProviderDispatchScheduler used by the legacy host scheduler adapter.
+- Preserve Workflow transaction, lease, task and event authority; scheduler receives WorkflowStatePort v2 and ExecutionPersistencePort v1.
+
 ## 0.2.6
 
 - Refresh immutable Execution Runtime dependency to 0.1.6 so Workflow Runtime shares the host’s exact provider-adapter package version.
