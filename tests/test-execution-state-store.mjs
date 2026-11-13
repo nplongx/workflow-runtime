@@ -298,7 +298,7 @@ function createWorkflowParents(db) {
 
 {
   const source = fs.readFileSync(path.join(root, 'src/runtime/job-store.js'), 'utf8');
-  assert.match(source, /import \{ ExecutionStateStore \} from '\.\/execution-state-store\.js'/);
+  assert.match(source, /import \{[\s\S]*ExecutionStateStore[\s\S]*\} from '@runalith\/execution-runtime'/);
   assert.match(source, /new ExecutionStateStore\(this\.db\)/);
   assert.doesNotMatch(source,
     /CREATE TABLE IF NOT EXISTS (?:attempts|results|execution_batches|execution_batch_items|task_checkpoints)\b/,

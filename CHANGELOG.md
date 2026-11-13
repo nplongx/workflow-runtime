@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.2
+
+- Move Execution state/persistence schema and SQL implementations into the standalone `@runalith/execution-runtime` package.
+- Keep compatibility re-exports for previous Workflow Runtime public Execution symbols and module paths.
+- Declare immutable GitHub dependencies for Execution Runtime and Workflow Contracts; clean installs no longer rely on a parent checkout.
+
 ## 0.2.1
 
 - Expose one-time host injection for typed action-intent semantic verification through the public Workflow Plan module, sharing the exact verifier instance used by `validateExecutionPlan`.

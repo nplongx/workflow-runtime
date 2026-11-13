@@ -29,7 +29,7 @@ try {
   const packed = JSON.parse(run('npm', ['pack', '--json', '--pack-destination', temporaryRoot], root, 'npm pack'));
   assert.equal(packed.length, 1);
   assert.equal(packed[0].name, '@runalith/workflow-runtime');
-  assert.equal(packed[0].version, '0.2.1');
+  assert.equal(packed[0].version, '0.2.2');
   const tarball = path.join(temporaryRoot, packed[0].filename);
   assert.ok(fs.statSync(tarball).size > 10_000);
 
@@ -46,6 +46,8 @@ try {
     assert.equal(typeof api.createRunalithWorkflowStore, 'function');
     assert.equal(typeof api.createWorkflowStatePort, 'function');
     assert.equal(typeof api.createExecutionStatePort, 'function');
+    assert.equal(typeof api.ExecutionStateStore, 'function');
+    assert.equal(typeof api.ExecutionPersistenceStore, 'function');
     assert.equal(typeof api.configureProductionQaHarnessRoot, 'function');
     assert.equal(typeof api.configureCompiledActionIntentSemanticVerifier, 'function');
     assert.equal(api.WORKFLOW_PLAN_API_VERSION, 1);

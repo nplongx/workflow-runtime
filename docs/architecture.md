@@ -87,7 +87,7 @@ The port interfaces are boundaries inside one process and one database. They are
 
 ## Dependencies
 
-The runtime uses Node.js built-ins, including node:sqlite, and has no third-party runtime dependency or sibling-package dependency. The versioned COS-AP v1 contract source is mirrored under protocol/cos-ap-v1/ to keep this checkout self-contained.
+The runtime uses Node.js built-ins and two immutable GitHub-pinned Runalith dependencies: `@runalith/workflow-contracts` for pure strict-JSON/DTO helpers and `@runalith/execution-runtime` for Execution-owned persistence stores, ports, participants and provider-dispatch identity. COS-AP v1 remains mirrored for Workflow/MCP wire compatibility. Workflow Runtime does not contain the physical Execution SQL owner implementation; its local paths are compatibility re-exports from Execution Runtime. Cross-domain transactions still use the caller-owned shared SQLite connection and remain coordinated by Workflow.
 
 ## Workflow Plan API v1
 

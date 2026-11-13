@@ -88,7 +88,7 @@ test('WorkflowStore core no longer issues SQL against Execution provider ledgers
   assert.match(composition, /createWorkflowStatePort\(this, \{ executionPersistenceStore \}\)/);
   assert.match(composition, /createExecutionPersistenceParticipant\(executionPersistenceStore, this\.db\)/);
   assert.match(composition, /attachExecutionPersistenceParticipant/);
-  const executionStoreSource = fs.readFileSync(path.join(root, 'src/runtime/execution-persistence-store.js'), 'utf8');
+  const executionStoreSource = fs.readFileSync(path.join(root, 'node_modules/@runalith/execution-runtime/src/execution-persistence-store.js'), 'utf8');
   assert.match(executionStoreSource, /CREATE TABLE IF NOT EXISTS provider_runs/);
   assert.match(executionStoreSource, /CREATE TABLE IF NOT EXISTS provider_dispatch_intents/);
   assert.match(executionStoreSource, /recordProviderDispatchOutcome\(/,

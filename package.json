@@ -1,6 +1,6 @@
 {
   "name": "@runalith/workflow-runtime",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Local-first, SQLite-backed durable workflow lifecycle and agent-session runtime.",
   "license": "MIT",
   "type": "module",
@@ -41,6 +41,10 @@
     "url": "https://github.com/nplongx/workflow-runtime/issues"
   },
   "homepage": "https://github.com/nplongx/workflow-runtime#readme",
+  "dependencies": {
+    "@runalith/execution-runtime": "https://github.com/nplongx/execution-runtime/archive/de07421c5bb25378ec5e69831b237acf36a68b73.tar.gz",
+    "@runalith/workflow-contracts": "https://github.com/nplongx/runalith-workflow-contracts/archive/4db6c79839fe27f1171be341b824dc3ebd6f8aa3.tar.gz"
+  },
   "keywords": [
     "workflow-runtime",
     "durable-workflows",

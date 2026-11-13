@@ -3,12 +3,13 @@ import path from 'node:path';
 import {
   assertProviderDispatchIntent,
   canonicalProviderDispatchRequest
-} from './provider-dispatch-identity.js';
+} from '@runalith/execution-runtime';
 import { parseStrictJson } from './strict-json.js';
 import { canonicalJson, assertTaskDependenciesMatchPlan } from './workflow-plan-public-api.js';
 import { findUnresolvedProviderOutcome } from './workflow-state-predicates.js';
-import { ExecutionPersistenceStore } from './execution-persistence-store.js';
-import { assertExecutionStatePort, createLegacyExecutionStatePort } from './execution-state-port.js';
+import {
+  ExecutionPersistenceStore, assertExecutionStatePort, createLegacyExecutionStatePort
+} from '@runalith/execution-runtime';
 
 /**
  * Workflow-owned state API consumed by execution adapters.

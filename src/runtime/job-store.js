@@ -14,14 +14,15 @@ import { createArtifactRecord, validateArtifact, validateArtifactContent, Artifa
 import { getAgentArtifactType, getAgentInputArtifactTypes } from './workflow/agent-contracts.js';
 import { canonicalExecutionEvidenceContent as executionEvidenceContent, validateEvidenceContract } from './workflow/evidence.js';
 import { parseStrictJson } from './strict-json.js';
-import { assertProviderDispatchIntent } from './provider-dispatch-identity.js';
+import { assertProviderDispatchIntent } from '@runalith/execution-runtime';
 import { getWorkflowPolicySnapshotsForJob, initializeWorkflowPolicyStore } from './workflow/policy-contract.js';
 import { normalizeSuccessContract } from './workflow-contracts-public-api.js';
 import { resolveRoleProfileBindings } from './workflow/role-profiles.js';
 import { findUnresolvedProviderOutcome as findUnresolvedProviderOutcomePredicate } from './workflow-state-predicates.js';
-import { ExecutionStateStore } from './execution-state-store.js';
-import { createExecutionStatePort } from './execution-state-port.js';
-import { assertExecutionStateParticipant, createExecutionStateParticipant } from './execution-state-participant.js';
+import {
+  ExecutionStateStore, createExecutionStatePort,
+  assertExecutionStateParticipant, createExecutionStateParticipant
+} from '@runalith/execution-runtime';
 import {
   OWNER_APPROVAL_DISPATCH_OPERATION_VERSION, OWNER_APPROVAL_DISPATCH_OPERATION_ID,
   OWNER_APPROVAL_SCOPE, OWNER_APPROVAL_ALLOWED_ACTION_IDS,

@@ -3,8 +3,9 @@ import { AgentSessionStore } from './agent-session-store.js';
 import { AGENT_SESSION_API_METHODS, createAgentSessionApi, createAgentSessionPort,
   createAgentSessionLifecycleParticipant } from './agent-session-api.js';
 import { createWorkflowStatePort } from './workflow-state-port.js';
-import { ExecutionPersistenceStore } from './execution-persistence-store.js';
-import { createExecutionPersistenceParticipant } from './execution-persistence-participant.js';
+import {
+  ExecutionPersistenceStore, createExecutionPersistenceParticipant
+} from '@runalith/execution-runtime';
 
 /** Host composition root for Workflow and Agent Session within one SQLite unit. */
 export class RunalithWorkflowStore extends WorkflowStore {

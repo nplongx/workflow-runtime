@@ -17,8 +17,8 @@
   "files": [
     {
       "path": "index.js",
-      "sha256": "e6046a9639bee42cc130579235092efac461ef8d8feb2f136b178cbfe7df9a04",
-      "sizeBytes": 2366
+      "sha256": "77d6f293c59c566abfa9195282476f1b9f532e72c773b28ce7be7e2d08a0e55b",
+      "sizeBytes": 2689
     },
     {
       "path": "job-store.js",
@@ -27,8 +27,8 @@
     },
     {
       "path": "package.json",
-      "sha256": "edf01a6195cf35d8a897f7320a7de2f7def53682353eec3959dc0b559669c703",
-      "sizeBytes": 1425
+      "sha256": "3819dda0c392f99dbf2b528fa0f4d5772b02d8c0a9ec879a23143db3a8599497",
+      "sizeBytes": 1738
     },
     {
       "path": "protocol/cos-ap-v1/index.js",
@@ -57,43 +57,43 @@
     },
     {
       "path": "src/runtime/execution-contract.js",
-      "sha256": "2a0a7cf446242c86bb80d5d53d3450005c6bb1dea7560904b5446c1a3a220016",
-      "sizeBytes": 3757
+      "sha256": "12d1c7cee0b9a6423c387c3e50ecd985e9cb61ca6104d8d1827d0a090f49236b",
+      "sizeBytes": 308
     },
     {
       "path": "src/runtime/execution-persistence-participant.js",
-      "sha256": "32fc0936182d866f3b0ddce6c27e27a3f7a8f5c7834629d815ce939e3b8a22f8",
-      "sizeBytes": 1622
+      "sha256": "d9debe76f8182fc4045c3875ed1def357a622aa49bce01886d2c3c0b4abff93b",
+      "sizeBytes": 284
     },
     {
       "path": "src/runtime/execution-persistence-port.js",
-      "sha256": "1418d7e9c518fc063a041d98c7ea5d92fff9b7416671358a77a53fdc209be18e",
-      "sizeBytes": 4030
+      "sha256": "12e2e95d74512d7d63f52b75d84427b657ef2987b2e29e3dd30dc84f13b8d13f",
+      "sizeBytes": 330
     },
     {
       "path": "src/runtime/execution-persistence-store.js",
-      "sha256": "b46459af48b642be361837013a7a477cecd167137c52bef873c3ac93ceda1493",
-      "sizeBytes": 29459
+      "sha256": "12788f9afb9367d4106ade82a2525dfa8bfa514e983d80699bd6cd13de5632ca",
+      "sizeBytes": 269
     },
     {
       "path": "src/runtime/execution-state-participant.js",
-      "sha256": "1d0dbda1684a5b3dba38b03455cf02546451673301d2de3dfda0ccf734f38c70",
-      "sizeBytes": 1886
+      "sha256": "101095598a14092d76adc0dcc77193ca68e4feb676ce0b942dc383eef086c523",
+      "sizeBytes": 256
     },
     {
       "path": "src/runtime/execution-state-port.js",
-      "sha256": "703e458b619db1a96c3b740dcc6f8cabea448eedb1a3f5c5658117d75e8a22ca",
-      "sizeBytes": 2675
+      "sha256": "a1d2455a05effd64d1ad5e2eb7dd9b4cda50c34a535e129536a7cc81050baf91",
+      "sizeBytes": 262
     },
     {
       "path": "src/runtime/execution-state-store.js",
-      "sha256": "af35edb06ec50d8cdf2f8db7d2ab7a6677805db3d8e60f6c946f761a58074c03",
-      "sizeBytes": 29698
+      "sha256": "6c5238a0f5dc336a6c5a3cbe465673da385e25f5f31f4c3ef152de3d72f36ccc",
+      "sizeBytes": 299
     },
     {
       "path": "src/runtime/job-store.js",
-      "sha256": "431a457cb12842283e440850e38669c226c0c1befd94ccf8336a1e7d73f8ea23",
-      "sizeBytes": 514744
+      "sha256": "d3891c9e9c288e899a4b8f5466d0adfb4c00e571aa1cb591850bb916a99d73dd",
+      "sizeBytes": 514650
     },
     {
       "path": "src/runtime/observability.js",
@@ -107,13 +107,13 @@
     },
     {
       "path": "src/runtime/provider-dispatch-identity.js",
-      "sha256": "bd8708bcfe8d259d16876774024d85adf030d4736953e71c39fe46e72a110085",
-      "sizeBytes": 14428
+      "sha256": "59b2d1e84a1ec697e6b30dea945ac33dce10011ebc5453000a7fe3631fb9e6fa",
+      "sizeBytes": 145
     },
     {
       "path": "src/runtime/runalith-runtime-composition.js",
-      "sha256": "d5d494733687d6adce46b832db3c0255bd4b2294b204cd8e3044fb049d8016b8",
-      "sizeBytes": 4029
+      "sha256": "3b997d31721a74ef70c97309d622440a12af39eb13aa2a9e14a36f89c9dae958",
+      "sizeBytes": 3969
     },
     {
       "path": "src/runtime/secure-filesystem.js",
@@ -147,8 +147,8 @@
     },
     {
       "path": "src/runtime/workflow-state-port.js",
-      "sha256": "aadf8341fbf976ad3965611c7f4ed6aedfc21ff2c675edf54bf56a64193739dd",
-      "sizeBytes": 71990
+      "sha256": "b37eaec0180eb31b912d7fee84353e6585c21589943676197d5816e6537196b5",
+      "sizeBytes": 71939
     },
     {
       "path": "src/runtime/workflow-state-predicates.js",
@@ -276,5 +276,5 @@
       "sizeBytes": 9914
     }
   ],
-  "packageVersion": "0.2.1"
+  "packageVersion": "0.2.2"
 }
