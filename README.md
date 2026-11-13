@@ -7,7 +7,7 @@
 
 It is a composable runtime library, not a network service or a self-running workflow platform. The host application remains responsible for authenticated identity, trust configuration, provider calls, process execution, scheduling, external side effects, and operational recovery.
 
-> **Status:** 0.3.2, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
+> **Status:** 0.3.3, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
 
 ## Scope
 
@@ -21,6 +21,7 @@ It is a composable runtime library, not a network service or a self-running work
 - Pure reviewer-artifact normalization and schema parsing through `@runalith/workflow-runtime/artifact-normalizer`.
 - Pure immutable Success Contract normalization and predicate/assessment validation through `@runalith/workflow-runtime/success-contract`.
 - Immutable built-in Workflow role capability vocabulary and validation through `@runalith/workflow-runtime/roles`.
+- Version-pinned custom role profile bindings, profile hashes and task overlay validation through `@runalith/workflow-runtime/role-profiles`.
 - Explicit SQLite opening or caller-supplied SQLite connection; no implicit database creation on package import.
 
 ## Non-goals
@@ -41,7 +42,7 @@ Requirements:
 - Built-in node:sqlite.
 - Local filesystem for a file-backed SQLite database.
 
-The runtime uses Node.js built-ins plus two explicit public Runalith dependencies: `@runalith/workflow-contracts` for strict JSON/DTO policy primitives and `@runalith/execution-runtime` for Execution-owned persistence stores, Provider Admission, GitHub Actions Runner Admission, provider transport, ProviderDispatchScheduler, execution observation helpers, ports, participants and provider-ledger identity. COS-AP v1 remains mirrored for Workflow/MCP wire compatibility. Both dependencies are pinned to immutable GitHub commits in the lockfile; no parent application checkout is required.
+The runtime uses Node.js built-ins plus explicit public Runalith dependencies: `@runalith/agent-runtime` for Agent Skills ingestion, `@runalith/workflow-contracts` for strict JSON/DTO policy primitives, and `@runalith/execution-runtime` for Execution-owned persistence stores, Provider Admission, GitHub Actions Runner Admission, provider transport, ProviderDispatchScheduler, execution observation helpers, ports, participants and provider-ledger identity. COS-AP v1 remains mirrored for Workflow/MCP wire compatibility. Dependencies are pinned to immutable GitHub commits in the lockfile; no parent application checkout is required.
 
 Execution table DDL and SQL primitives no longer live in Workflow Runtime. Workflow imports the public Execution Runtime API and keeps only the existing transaction coordination around task/job/event state. Workflow remains the current transaction coordinator for cross-domain atomicity; the new repository does not imply an independent DB or process.
 
@@ -204,6 +205,27 @@ const engineer = validateRoleContract('engineer', { capability: TaskCapability.C
 ~~~
 
 The subpath exposes frozen task capability values and the built-in Workflow role contract map. `getRoleContract()` resolves the corresponding public Agent Contract; `validateRoleContract()` checks requested capability/executor constraints. These values describe workflow roles; they do not assign roles, authenticate agents, grant runtime capabilities, approve work, or dispatch tasks. Workflow plan/authorization and host tool registration remain authoritative.
+
+## Version-pinned custom role profiles
+
+~~~js
+import {
+  normalizeRoleProfileBindings,
+  resolveRoleProfileBindings,
+  createRoleProfileOverlay,
+  validateRoleProfileOverlay
+} from '@runalith/workflow-runtime/role-profiles';
+
+// workflowStore.db is the already-initialized, host-owned Workflow connection.
+const pins = normalizeRoleProfileBindings(workflowStore.db, 'standard-engineering', [
+  { role: 'architect', custom_role_id: 'architecture-profile', custom_role_version: 2 }
+]);
+const resolved = resolveRoleProfileBindings(workflowStore.db, pins);
+const overlay = createRoleProfileOverlay('architect', resolved[0].profile, resolved[0].profile_hash);
+validateRoleProfileOverlay('architect', overlay);
+~~~
+
+The API validates exact custom role IDs/versions against built-in role input/output contracts, derives SHA-256 profile pins and verifies detached execution overlays. It receives a caller-owned SQLite connection and performs read-only lookups; the caller owns connection lifetime and all writes. Snapshot overlays include only role ID/version, name, prompt, input contract, output artifact type and skill snapshot. They do not carry custom-role permissions, allowed capabilities or tool grants. This API does not assign roles, authorize tools/workspace access, approve tasks, or dispatch work.
 
 ## Development and validation
 

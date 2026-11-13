@@ -1,6 +1,6 @@
 {
   "name": "@runalith/workflow-runtime",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Local-first, SQLite-backed durable workflow lifecycle and agent-session runtime.",
   "license": "MIT",
   "type": "module",
@@ -14,7 +14,8 @@
     "./phases": "./src/runtime/workflow/phases.js",
     "./artifact-normalizer": "./src/runtime/workflow/artifact-normalizer.js",
     "./success-contract": "./src/runtime/workflow/success-contract.js",
-    "./roles": "./src/runtime/workflow/roles.js"
+    "./roles": "./src/runtime/workflow/roles.js",
+    "./role-profiles": "./src/runtime/workflow/role-profiles.js"
   },
   "files": [
     "index.js",
@@ -46,6 +47,7 @@
   },
   "homepage": "https://github.com/nplongx/workflow-runtime#readme",
   "dependencies": {
+    "@runalith/agent-runtime": "https://github.com/nplongx/agent-runtime/archive/f64d5e06c5af66d626ef575a08564273f4a466aa.tar.gz",
     "@runalith/execution-runtime": "https://github.com/nplongx/execution-runtime/archive/893e9d9ae79b14b512746438f63635dc7dde22d8.tar.gz",
     "@runalith/workflow-contracts": "https://github.com/nplongx/runalith-workflow-contracts/archive/4db6c79839fe27f1171be341b824dc3ebd6f8aa3.tar.gz"
   },

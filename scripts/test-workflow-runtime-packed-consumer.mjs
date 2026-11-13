@@ -29,7 +29,7 @@ try {
   const packed = JSON.parse(run('npm', ['pack', '--json', '--pack-destination', temporaryRoot], root, 'npm pack'));
   assert.equal(packed.length, 1);
   assert.equal(packed[0].name, '@runalith/workflow-runtime');
-  assert.equal(packed[0].version, '0.3.2');
+  assert.equal(packed[0].version, '0.3.3');
   const tarball = path.join(temporaryRoot, packed[0].filename);
   assert.ok(fs.statSync(tarball).size > 10_000);
 
@@ -46,6 +46,7 @@ try {
     const artifactNormalizer = await import('@runalith/workflow-runtime/artifact-normalizer');
     const successContracts = await import('@runalith/workflow-runtime/success-contract');
     const roles = await import('@runalith/workflow-runtime/roles');
+    const roleProfiles = await import('@runalith/workflow-runtime/role-profiles');
     assert.equal(fs.existsSync(${JSON.stringify(databasePath)}), false, 'package import created host database');
     assert.equal(typeof api.createRunalithWorkflowStore, 'function');
     assert.equal(typeof api.createWorkflowStatePort, 'function');
@@ -76,6 +77,36 @@ try {
     assert.equal(Object.isFrozen(roles.ROLE_CONTRACTS), true);
     assert.equal(roles.validateRoleContract('engineer', { capability: roles.TaskCapability.CODE_MODIFY }).id, 'agent.engineer');
     assert.equal(roles.getRoleContract('productowner').id, 'agent.product-owner');
+    assert.equal(Object.isFrozen(roleProfiles.BUILTIN_ROLE_PROFILE_OVERLAY_ROLES), true);
+    assert.equal(typeof roleProfiles.normalizeRoleProfileBindings, 'function');
+    assert.equal(typeof roleProfiles.resolveRoleProfileBindings, 'function');
+    assert.equal(typeof roleProfiles.createRoleProfileOverlay, 'function');
+    assert.equal(typeof roleProfiles.validateRoleProfileOverlay, 'function');
+    const profileDb = new DatabaseSync(':memory:');
+    try {
+      profileDb.exec('CREATE TABLE custom_role_versions(role_id TEXT NOT NULL, version INTEGER NOT NULL, name TEXT NOT NULL, description TEXT NOT NULL, system_prompt TEXT NOT NULL, input_contract_json TEXT NOT NULL, output_artifact_type TEXT NOT NULL, allowed_capabilities_json TEXT NOT NULL, permissions_json TEXT NOT NULL, allowed_tools_json TEXT NOT NULL, skills_json TEXT NOT NULL, created_at TEXT NOT NULL, created_by TEXT NOT NULL, PRIMARY KEY(role_id,version))');
+      profileDb.prepare('INSERT INTO custom_role_versions VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)').run(
+        'architecture-profile', 2, 'Architecture Profile', 'Pinned profile.', 'Use evidence.',
+        '["job.request","requirements","research"]', 'architecture', '[]',
+        '["workspace.read","artifact.create"]', '[]', '[]', '2026-01-01T00:00:00.000Z', 'test'
+      );
+      const pins = roleProfiles.normalizeRoleProfileBindings(profileDb, 'standard-engineering', [
+        { role: 'architect', custom_role_id: 'architecture-profile', custom_role_version: 2 }
+      ]);
+      assert.equal(pins.length, 1);
+      assert.match(pins[0].profile_hash, /^[a-f0-9]{64}$/);
+      const resolved = roleProfiles.resolveRoleProfileBindings(profileDb, pins);
+      assert.equal(resolved[0].profile.role_id, 'architecture-profile');
+      assert.equal(Object.hasOwn(resolved[0].profile, 'permissions'), false);
+      assert.equal(Object.hasOwn(resolved[0].profile, 'allowed_tools'), false);
+      const overlay = roleProfiles.createRoleProfileOverlay('architect', resolved[0].profile, resolved[0].profile_hash);
+      assert.equal(roleProfiles.validateRoleProfileOverlay('architect', overlay), true);
+      assert.throws(() => roleProfiles.validateRoleProfileOverlay('architect', { ...overlay, profile_hash: '0'.repeat(64) }), /hash mismatch/);
+      assert.throws(() => roleProfiles.normalizeRoleProfileBindings(profileDb, 'standard-engineering', [
+        { role: 'architect', custom_role_id: 'architecture-profile', custom_role_version: 2 },
+        { role: 'architect', custom_role_id: 'architecture-profile', custom_role_version: 2 }
+      ]), /duplicate role profile binding/);
+    } finally { profileDb.close(); }
     assert.equal(typeof api.workflowPlanApi.validateExecutionPlan, 'function');
     const planApi = await import('@runalith/workflow-runtime/workflow-plan');
     assert.equal(planApi.WORKFLOW_PLAN_API_VERSION, 1);

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.3
+
+- Expose version-pinned custom role profile binding, snapshot hashing and task-overlay validation through `@runalith/workflow-runtime/role-profiles`.
+- Align custom-role persistence reads with the host's public Workflow Contracts parser and Agent Runtime Skills importer; pin Agent Runtime to its CI-verified immutable commit.
+- The role-profile API accepts a caller-owned database connection and only reads persisted custom role versions; it does not open a database, grant permissions, assign roles, approve, or dispatch work.
+
 ## 0.3.2
 
 - Expose immutable Workflow task-capability constants and built-in role contract validation through `@runalith/workflow-runtime/roles`.

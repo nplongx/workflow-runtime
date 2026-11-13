@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
-import { parseStrictJson } from '../strict-json.js';
-import { loadAgentSkills, MAX_SKILLS_PER_ROLE } from './agent-skills.js';
+import { parseStrictJson } from '@runalith/workflow-contracts';
+import { loadAgentSkills, MAX_SKILLS_PER_ROLE } from '@runalith/agent-runtime/skills';
 
 export const CUSTOM_ROLE_ARTIFACT_TYPES = Object.freeze([
   'requirements', 'research', 'architecture', 'implementation', 'security-review',

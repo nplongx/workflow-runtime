@@ -27,8 +27,8 @@
     },
     {
       "path": "package.json",
-      "sha256": "c49cb684c82f82849732acaebb59185c53f130e4de3f7227fd7ea6570d9ca8e4",
-      "sizeBytes": 1990
+      "sha256": "fd8a4a28c04f70c14a07d8192ebf1caed3858ed3a2734ba70680693eae14d606",
+      "sizeBytes": 2187
     },
     {
       "path": "protocol/cos-ap-v1/index.js",
@@ -202,8 +202,8 @@
     },
     {
       "path": "src/runtime/workflow/custom-roles.js",
-      "sha256": "a0f637e312c4f279f5266dcf2aeffef734bb2ec75671847df54b47785248f371",
-      "sizeBytes": 12860
+      "sha256": "e52048c559b1c0eb7d9f9a6af25762990e04f9b24ef6136655330828d6ace02b",
+      "sizeBytes": 12884
     },
     {
       "path": "src/runtime/workflow/definitions/engineering.js",
