@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.3
+
+- Refresh the immutable Execution Runtime dependency to 0.1.2, including the extracted Provider Admission owner.
+- Keep Workflow's shared-connection transaction and task/event ownership unchanged.
+
 ## 0.2.2
 
 - Move Execution state/persistence schema and SQL implementations into the standalone `@runalith/execution-runtime` package.

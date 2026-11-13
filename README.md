@@ -37,7 +37,7 @@ Requirements:
 - Built-in node:sqlite.
 - Local filesystem for a file-backed SQLite database.
 
-The runtime uses Node.js built-ins plus two explicit public Runalith dependencies: `@runalith/workflow-contracts` for strict JSON/DTO policy primitives and `@runalith/execution-runtime` for Execution-owned persistence stores, ports, participants and provider-ledger identity. COS-AP v1 remains mirrored for Workflow/MCP wire compatibility. Both dependencies are pinned to immutable GitHub commits in the lockfile; no parent application checkout is required.
+The runtime uses Node.js built-ins plus two explicit public Runalith dependencies: `@runalith/workflow-contracts` for strict JSON/DTO policy primitives and `@runalith/execution-runtime` for Execution-owned persistence stores, provider admission, ports, participants and provider-ledger identity. COS-AP v1 remains mirrored for Workflow/MCP wire compatibility. Both dependencies are pinned to immutable GitHub commits in the lockfile; no parent application checkout is required.
 
 Execution table DDL and SQL primitives no longer live in Workflow Runtime. Workflow imports the public Execution Runtime API and keeps only the existing transaction coordination around task/job/event state. Workflow remains the current transaction coordinator for cross-domain atomicity; the new repository does not imply an independent DB or process.
 
