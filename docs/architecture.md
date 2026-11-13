@@ -88,3 +88,7 @@ The port interfaces are boundaries inside one process and one database. They are
 ## Dependencies
 
 The runtime uses Node.js built-ins, including node:sqlite, and has no third-party runtime dependency or sibling-package dependency. The versioned COS-AP v1 contract source is mirrored under protocol/cos-ap-v1/ to keep this checkout self-contained.
+
+## Workflow Plan API v1
+
+The immutable execution-plan normalizer is exported from `@runalith/workflow-runtime/workflow-plan` as a frozen four-method API: canonical JSON, plan validation, persisted dependency assertion and batch-route resolution. It is pure with respect to persistence: consumers supply plan/task values, and no database handle or generic transaction surface is exposed. AGG/evidence integrations should use this public API rather than import monolith-local plan modules.

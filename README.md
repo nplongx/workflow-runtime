@@ -7,7 +7,7 @@
 
 It is a composable runtime library, not a network service or a self-running workflow platform. The host application remains responsible for authenticated identity, trust configuration, provider calls, process execution, scheduling, external side effects, and operational recovery.
 
-> **Status:** 0.1.0, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
+> **Status:** 0.2.0, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
 
 ## Scope
 
@@ -155,3 +155,21 @@ GitHub Actions runs the checks on Node.js 22 and 24 on Ubuntu. These tests estab
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+## Workflow Plan API v1
+
+The immutable plan validator/normalizer is exposed separately from database composition:
+
+~~~js
+import {
+  workflowPlanApi,
+  validateExecutionPlan,
+  assertTaskDependenciesMatchPlan,
+  resolveTaskBatchRoute,
+} from '@runalith/workflow-runtime/workflow-plan';
+
+const validatedPlan = validateExecutionPlan(plan);
+const canonical = workflowPlanApi.canonicalJson(validatedPlan);
+~~~
+
+The API is frozen/versioned (`WORKFLOW_PLAN_API_VERSION = 1`) and exposes four named methods: `canonicalJson`, `validateExecutionPlan`, `assertTaskDependenciesMatchPlan`, and `resolveTaskBatchRoute`. It has no SQLite, WorkflowStore or mutable persistence capability. Use this subpath for read/validation integrations that do not need the runtime store.

@@ -8,3 +8,8 @@
 - Versioned Workflow/Execution state ports and participants.
 - Production QA harness dependency is host-injected and digest-pinned.
 - Expanded README, architecture, database integration, terminology, source-lineage, and security documentation.
+
+## 0.2.0
+
+- Exported frozen Workflow Plan API v1 from the package root and `./workflow-plan` subpath.
+- Added packed-consumer coverage for the independent plan API subpath.
