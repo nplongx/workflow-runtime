@@ -7,7 +7,7 @@
 
 It is a composable runtime library, not a network service or a self-running workflow platform. The host application remains responsible for authenticated identity, trust configuration, provider calls, process execution, scheduling, external side effects, and operational recovery.
 
-> **Status:** 0.3.3, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
+> **Status:** 0.3.4, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
 
 ## Scope
 
@@ -22,6 +22,7 @@ It is a composable runtime library, not a network service or a self-running work
 - Pure immutable Success Contract normalization and predicate/assessment validation through `@runalith/workflow-runtime/success-contract`.
 - Immutable built-in Workflow role capability vocabulary and validation through `@runalith/workflow-runtime/roles`.
 - Version-pinned custom role profile bindings, profile hashes and task overlay validation through `@runalith/workflow-runtime/role-profiles`.
+- Pure durable execution-evidence construction and validation through `@runalith/workflow-runtime/evidence`.
 - Explicit SQLite opening or caller-supplied SQLite connection; no implicit database creation on package import.
 
 ## Non-goals
@@ -226,6 +227,30 @@ validateRoleProfileOverlay('architect', overlay);
 ~~~
 
 The API validates exact custom role IDs/versions against built-in role input/output contracts, derives SHA-256 profile pins and verifies detached execution overlays. It receives a caller-owned SQLite connection and performs read-only lookups; the caller owns connection lifetime and all writes. Snapshot overlays include only role ID/version, name, prompt, input contract, output artifact type and skill snapshot. They do not carry custom-role permissions, allowed capabilities or tool grants. This API does not assign roles, authorize tools/workspace access, approve tasks, or dispatch work.
+
+## Durable execution evidence contract
+
+~~~js
+import {
+  canonicalExecutionEvidenceContent,
+  executionEvidence,
+  validateEvidenceContract
+} from '@runalith/workflow-runtime/evidence';
+
+const content = canonicalExecutionEvidenceContent({
+  taskId: task.task_id,
+  executionSessionId: task.execution_session_id,
+  attempt: task.execution_attempt,
+  command: task.metadata.command,
+  exitCode: task.execution_exit_code,
+  status: task.execution_status,
+  stdout: task.execution_stdout,
+  stderr: task.execution_stderr
+});
+const verdict = validateEvidenceContract(task, { outcome: 'success', content }, plannedExecution);
+~~~
+
+This API accepts detached task/result/plan objects. It validates durable task state, exact exit status/code, `ExecutionManager` identity, session and attempt binding, immutable plan command identity, canonical result bytes and evidence markers. It does not query a database, retrieve provider artifacts, independently attest a worker/provider, persist results or authorize terminalization. Callers select trusted active rows and retain Workflow transaction/persistence authority. A valid result proves internal consistency of supplied evidence, not independent provider attestation.
 
 ## Development and validation
 

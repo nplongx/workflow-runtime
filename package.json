@@ -1,6 +1,6 @@
 {
   "name": "@runalith/workflow-runtime",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Local-first, SQLite-backed durable workflow lifecycle and agent-session runtime.",
   "license": "MIT",
   "type": "module",
@@ -15,7 +15,8 @@
     "./artifact-normalizer": "./src/runtime/workflow/artifact-normalizer.js",
     "./success-contract": "./src/runtime/workflow/success-contract.js",
     "./roles": "./src/runtime/workflow/roles.js",
-    "./role-profiles": "./src/runtime/workflow/role-profiles.js"
+    "./role-profiles": "./src/runtime/workflow/role-profiles.js",
+    "./evidence": "./src/runtime/workflow/evidence.js"
   },
   "files": [
     "index.js",

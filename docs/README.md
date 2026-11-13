@@ -8,6 +8,7 @@
 | Pure Success Contract normalization and predicate evaluation | [Success Contracts](success-contracts.md) |
 | Built-in Workflow roles and task capability vocabulary | [Workflow roles](roles.md) |
 | Version-pinned custom role profiles and task overlays | [Role profiles](role-profiles.md) |
+| Durable Workflow execution evidence contract | [Execution evidence](execution-evidence.md) |
 | SQLite opening, connection ownership, migrations | [Database integration](integration.md) |
 | Workflow, execution, provider, and Agent Session terms | [Terminology](terminology.md) |
 | Upstream source, pinned files, and extraction exclusions | [Source lineage](source-lineage.md) |

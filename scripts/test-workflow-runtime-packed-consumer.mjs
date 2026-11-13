@@ -29,7 +29,7 @@ try {
   const packed = JSON.parse(run('npm', ['pack', '--json', '--pack-destination', temporaryRoot], root, 'npm pack'));
   assert.equal(packed.length, 1);
   assert.equal(packed[0].name, '@runalith/workflow-runtime');
-  assert.equal(packed[0].version, '0.3.3');
+  assert.equal(packed[0].version, '0.3.4');
   const tarball = path.join(temporaryRoot, packed[0].filename);
   assert.ok(fs.statSync(tarball).size > 10_000);
 
@@ -47,6 +47,7 @@ try {
     const successContracts = await import('@runalith/workflow-runtime/success-contract');
     const roles = await import('@runalith/workflow-runtime/roles');
     const roleProfiles = await import('@runalith/workflow-runtime/role-profiles');
+    const evidence = await import('@runalith/workflow-runtime/evidence');
     assert.equal(fs.existsSync(${JSON.stringify(databasePath)}), false, 'package import created host database');
     assert.equal(typeof api.createRunalithWorkflowStore, 'function');
     assert.equal(typeof api.createWorkflowStatePort, 'function');
@@ -107,6 +108,20 @@ try {
         { role: 'architect', custom_role_id: 'architecture-profile', custom_role_version: 2 }
       ]), /duplicate role profile binding/);
     } finally { profileDb.close(); }
+    const evidenceTask = {
+      task_id: 'task-evidence-1', status: 'completed', execution_exit_code: 0, execution_status: 'completed',
+      execution_stdout: 'ok\\n', execution_stderr: '', execution_session_id: 'session-evidence-1', execution_attempt: 2,
+      metadata_json: JSON.stringify({ executor: 'ExecutionManager', command: 'node build.js' })
+    };
+    const plannedExecution = { executor: 'ExecutionManager', command: 'node build.js' };
+    const result = { outcome: 'success', content: evidence.canonicalExecutionEvidenceContent({
+      taskId: evidenceTask.task_id, executionSessionId: evidenceTask.execution_session_id,
+      attempt: evidenceTask.execution_attempt, command: 'node build.js', exitCode: 0,
+      status: 'completed', stdout: evidenceTask.execution_stdout, stderr: evidenceTask.execution_stderr
+    }) };
+    assert.equal(evidence.executionEvidence(evidenceTask, result, plannedExecution).taskId, evidenceTask.task_id);
+    assert.equal(evidence.validateEvidenceContract(evidenceTask, result, plannedExecution).valid, true);
+    assert.equal(evidence.validateEvidenceContract({ ...evidenceTask, execution_exit_code: 1 }, result, plannedExecution).valid, false);
     assert.equal(typeof api.workflowPlanApi.validateExecutionPlan, 'function');
     const planApi = await import('@runalith/workflow-runtime/workflow-plan');
     assert.equal(planApi.WORKFLOW_PLAN_API_VERSION, 1);

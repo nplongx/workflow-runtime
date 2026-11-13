@@ -27,8 +27,8 @@
     },
     {
       "path": "package.json",
-      "sha256": "fd8a4a28c04f70c14a07d8192ebf1caed3858ed3a2734ba70680693eae14d606",
-      "sizeBytes": 2187
+      "sha256": "5579136eae5289c26660c54c7632e8d8f44e45378cb24f4dccfbe9e855fc44e4",
+      "sizeBytes": 2243
     },
     {
       "path": "protocol/cos-ap-v1/index.js",
@@ -232,8 +232,8 @@
     },
     {
       "path": "src/runtime/workflow/evidence.js",
-      "sha256": "e4924e8c12a0e8d029189452e5cce5d6379be769d826ea380487e97bac24d7d8",
-      "sizeBytes": 6057
+      "sha256": "6c27291242308d68e5329ad493901eca6093b15ee38b03b9f0264eb15970f391",
+      "sizeBytes": 6068
     },
     {
       "path": "src/runtime/workflow/phases.js",
@@ -276,5 +276,5 @@
       "sizeBytes": 9914
     }
   ],
-  "packageVersion": "0.3.2"
+  "packageVersion": "0.3.4"
 }

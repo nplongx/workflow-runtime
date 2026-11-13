@@ -1,4 +1,4 @@
-import { parseStrictJson } from '../strict-json.js';
+import { parseStrictJson } from '@runalith/workflow-contracts';
 
 function shellQuote(value) {
   return `'${String(value).replace(/'/g, `'\\''`)}'`;

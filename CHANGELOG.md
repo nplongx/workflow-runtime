@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.4
+
+- Expose pure durable Workflow execution-evidence construction and validation through `@runalith/workflow-runtime/evidence`.
+- Use the pinned public Workflow Contracts strict JSON parser instead of the package-local mirror.
+- Keep evidence retrieval, trusted row selection, result writes, events and terminalization with the caller/WorkflowStore.
+
 ## 0.3.3
 
 - Expose version-pinned custom role profile binding, snapshot hashing and task-overlay validation through `@runalith/workflow-runtime/role-profiles`.
