@@ -7,7 +7,7 @@
 
 It is a composable runtime library, not a network service or a self-running workflow platform. The host application remains responsible for authenticated identity, trust configuration, provider calls, process execution, scheduling, external side effects, and operational recovery.
 
-> **Status:** 0.3.12, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
+> **Status:** 0.3.13, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
 
 ## Scope
 
@@ -339,3 +339,7 @@ The narrow `./schema-contract` subpath exports only the pure `validateWorkflowDe
 ## Workflow plan compiler
 
 The `./compiler` subpath exports `createWorkflowPlanCompiler`. It constructs immutable, hash-bound Workflow plan records from caller-supplied job/custom-workflow read models and package-owned built-in definitions/catalogs. Production compilation fails closed unless host composition explicitly injects its Production QA catalog; the package does not carry or locate the host QA harness. Compilation does not read/write SQLite, authorize transitions, approve plans, launch tasks, retry or dispatch.
+
+## Reusable resource recommendations
+
+The pure `./resource-recommender` subpath exports `recommendReusableResourcesFromReadModels`. It ranks caller-supplied detached role/workflow/policy read models using deterministic English/Vietnamese lexical matching. The host must resolve overlay-compatible roles using its authoritative role/profile store and pass that compatibility map with the snapshots. The package does not query SQLite, resolve custom-role versions, attach policies, grant permissions, approve, execute, or dispatch.

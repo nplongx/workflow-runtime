@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.13
+
+- Expose pure read-model-based reusable Workflow resource recommendations through `./resource-recommender`.
+- Keep SQLite role/workflow/policy reads and role-profile overlay compatibility resolution in host composition; package receives only detached snapshots.
+- Preserve read-only recommendation semantics and explicitly non-authorizing output.
+
+
 ## 0.3.12
 
 - Expose pure built-in/custom Workflow plan compilation through `./compiler` using `createWorkflowPlanCompiler`.
