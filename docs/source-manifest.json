@@ -27,8 +27,8 @@
     },
     {
       "path": "package.json",
-      "sha256": "3fc98da1e643d460448072a34ce98617a6eb93deffe51422afd7f54f57e95f86",
-      "sizeBytes": 2614
+      "sha256": "cf3489cbe0e5925f42b47d57d7809589f1574c06917d73d7dd8b177f7ec0ea9c",
+      "sizeBytes": 2684
     },
     {
       "path": "protocol/cos-ap-v1/index.js",
@@ -276,5 +276,5 @@
       "sizeBytes": 9914
     }
   ],
-  "packageVersion": "0.3.6"
+  "packageVersion": "0.3.7"
 }

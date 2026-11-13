@@ -29,7 +29,7 @@ try {
   const packed = JSON.parse(run('npm', ['pack', '--json', '--pack-destination', temporaryRoot], root, 'npm pack'));
   assert.equal(packed.length, 1);
   assert.equal(packed[0].name, '@runalith/workflow-runtime');
-  assert.equal(packed[0].version, '0.3.6');
+  assert.equal(packed[0].version, '0.3.7');
   const tarball = path.join(temporaryRoot, packed[0].filename);
   assert.ok(fs.statSync(tarball).size > 10_000);
 
@@ -49,6 +49,8 @@ try {
     const roleProfiles = await import('@runalith/workflow-runtime/role-profiles');
     const evidence = await import('@runalith/workflow-runtime/evidence');
     const workspaceWrite = await import('@runalith/workflow-runtime/workspace-write-contract');
+    const compiledAgentContracts = await import('@runalith/workflow-runtime/agent-contracts');
+    const workflowPlan = await import('@runalith/workflow-runtime/workflow-plan');
     const agentContracts = await import('@runalith/agent-contracts');
     const workspaceFilesystem = await import('@runalith/workspace-runtime/filesystem');
     assert.equal(fs.existsSync(${JSON.stringify(databasePath)}), false, 'package import created host database');
@@ -135,6 +137,11 @@ try {
     assert.equal(agentContracts.getAgentContract('engineer').id, 'agent.engineer');
     assert.equal(typeof workspaceFilesystem.openDirectoryWithin, 'function');
     assert.equal(typeof workspaceFilesystem.lstatWithin, 'function');
+    assert.equal(typeof compiledAgentContracts.validateCompiledActionIntent, 'function');
+    assert.equal(typeof compiledAgentContracts.configureCompiledActionIntentSemanticVerifier, 'function');
+    assert.equal(compiledAgentContracts.configureCompiledActionIntentSemanticVerifier,
+      workflowPlan.configureCompiledActionIntentSemanticVerifier,
+      'public Workflow Plan API and Agent Contracts subpath must share one verifier configuration closure');
     assert.equal(typeof api.workflowPlanApi.validateExecutionPlan, 'function');
     const planApi = await import('@runalith/workflow-runtime/workflow-plan');
     assert.equal(planApi.WORKFLOW_PLAN_API_VERSION, 1);

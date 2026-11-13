@@ -8,6 +8,8 @@ import * as agentCompatibility from '../src/runtime/agent-contracts-public-api.j
 import * as workspaceFilesystem from '@runalith/workspace-runtime/filesystem';
 import * as filesystemCompatibility from '../src/runtime/secure-filesystem.js';
 import * as publicApi from '@runalith/workflow-runtime/workspace-write-contract';
+import * as publicAgentContracts from '@runalith/workflow-runtime/agent-contracts';
+import * as workflowPlan from '@runalith/workflow-runtime/workflow-plan';
 import * as implementation from '../src/runtime/workflow/workspace-write-contract.js';
 
 function fixture(run) {
@@ -39,6 +41,14 @@ test('Agent Contracts and descriptor-anchored filesystem compatibility paths hav
   for (const name of Object.keys(agentContracts)) assert.equal(agentCompatibility[name], agentContracts[name], name);
   assert.deepEqual(Object.keys(filesystemCompatibility).sort(), Object.keys(workspaceFilesystem).sort());
   for (const name of Object.keys(workspaceFilesystem)) assert.equal(filesystemCompatibility[name], workspaceFilesystem[name], name);
+});
+
+test('Workflow compiled Agent Contracts subpath and Workflow Plan API share one injected verifier closure', () => {
+  assert.equal(publicAgentContracts.configureCompiledActionIntentSemanticVerifier,
+    workflowPlan.configureCompiledActionIntentSemanticVerifier);
+  assert.equal(typeof publicAgentContracts.validateCompiledActionIntent, 'function');
+  assert.equal(typeof publicAgentContracts.getAgentContract, 'function');
+  assert.equal(typeof publicAgentContracts.getAgentArtifactType, 'function');
 });
 
 test('workspace write normalization checks explicit role/path scopes without mutating the workspace', () => {

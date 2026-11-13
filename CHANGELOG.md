@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.7
+
+- Expose Workflow's compiled Agent Contract structural validator and one-time AGG semantic-verifier injection through `./agent-contracts`.
+- Keep the AGG semantic implementation host-owned and injected; the package only checks the exact compiled action-intent structure, role/task contract version, source lineage, dependency IDs and typed input bindings.
+- The host's historical `src/runtime/workflow/agent-contracts.js` path can now re-export this package module, preserving one shared verifier-configuration closure with the public Workflow Plan API.
+
 ## 0.3.6
 
 - Expose Workflow's bounded `workspace.write` scope normalizer and role-scope lookup through `./workspace-write-contract`; host persistence, approval and file mutation remain separate owners.
