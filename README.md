@@ -1,79 +1,157 @@
 # Workflow Runtime
 
-`@runalith/workflow-runtime` is a local-first, SQLite-backed runtime for durable workflow lifecycle, immutable plan binding, approvals, tasks, leases, artifacts, execution state, event history, reports and Agent Session orchestration.
+[![CI](https://github.com/nplongx/workflow-runtime/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/nplongx/workflow-runtime/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-**Status:** GitHub-first source package `0.2.0`; pre-1.0 APIs and migration compatibility remain under review. Not published to npm.
+**@runalith/workflow-runtime** is a Node.js ESM library for durable, local-first workflow state. It provides Workflow lifecycle and plan storage, tasks and leases, approvals and event history, artifacts and reports, execution/attempt records, provider-dispatch persistence, and Agent Session orchestration on SQLite.
 
-```sh
+It is a composable runtime library, not a network service or a self-running workflow platform. The host application remains responsible for authenticated identity, trust configuration, provider calls, process execution, scheduling, external side effects, and operational recovery.
+
+> **Status:** 0.1.0, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
+
+## Scope
+
+- Durable Workflow/Job lifecycle, immutable plan snapshots, task state, leases, event journal, artifacts, reports, and workflow runtime state.
+- Versioned in-process coordination contracts: WorkflowStatePort v2, WorkflowControlPort v1, and Execution ports/participants v1.
+- Execution attempts, results, execution batches/items, and checkpoints.
+- Provider run and dispatch-intent records, including unresolved-outcome and reconciliation state.
+- Agent Session records, access grants, message queues, delivery claims, receipts, and lifecycle hooks.
+- Workflow definitions, role/agent contracts, plan compilation, policy/success contracts, artifact validation, and evidence normalization.
+- Explicit SQLite opening or caller-supplied SQLite connection; no implicit database creation on package import.
+
+## Non-goals
+
+This package does not provide an HTTP/MCP server, authentication provider, trust-root or private-key manager, provider transport, OS process executor, distributed scheduler, distributed transaction protocol, or remote database service. The package persists intent and observations; it does not perform provider network calls or independently prove that remote work stopped.
+
+## Install
+
+Install directly from GitHub:
+
+~~~sh
 npm install github:nplongx/workflow-runtime
-```
+~~~
 
-## Requirements
+Requirements:
 
-- Node.js `>=22.13.0` (`node:sqlite`).
-- Local filesystem for SQLite database.
+- Node.js >=22.13.0.
+- Built-in node:sqlite.
+- Local filesystem for a file-backed SQLite database.
 
-## Build and tests
+There are no third-party runtime dependencies. The versioned COS-AP v1 source mirror is included in this repository so package installs do not need the parent application or another repository.
 
-```sh
-npm ci
-npm run check
-npm run pack:check
-npm run test:packed-consumer
-```
+## Quick start
 
-The package has no third-party runtime dependency. Its COS-AP v1 wire contract source mirror is included under `protocol/cos-ap-v1/` to preserve offline, deterministic installs.
+Use an in-memory database for a smoke test or isolated test:
 
-## API example
+~~~js
+import { DatabaseSync } from 'node:sqlite';
+import { createRunalithWorkflowStore } from '@runalith/workflow-runtime';
 
-```js
-import { openWorkflowDatabase, createRunalithWorkflowStore } from '@runalith/workflow-runtime';
+const database = new DatabaseSync(':memory:');
 
-const { database } = openWorkflowDatabase({
-  environment: { WORKFLOW_DB: '/absolute/private/path/workflow.db' }
-});
-const runtime = createRunalithWorkflowStore(database);
-console.log(runtime.getStats());
-// Host owns connection lifetime.
-database.close();
-```
+try {
+  const runtime = createRunalithWorkflowStore(database);
+  const job = runtime.createJob({
+    conversationKey: 'example-conversation',
+    title: 'Prepare a design',
+  });
+  const task = runtime.ensureTask(job.job_id, {
+    role: 'architect',
+    description: 'Create the design artifact',
+  });
 
-`WorkflowStoreCore` is the base Workflow store. `WorkflowStore` / `RunalithWorkflowStore` compose Agent Session API and Execution Persistence adapters on the same connection. The legacy `workflowStore` singleton is lazy: importing this package does not create directories or open a database; first property access initializes the default host store.
+  const session = runtime.agentSessions.createAgentSession(task.task_id, {
+    sessionKey: 'agent:design',
+    role: 'architect',
+  });
 
-## Workflow Plan API v1
+  console.log({ jobId: job.job_id, taskId: task.task_id, sessionId: session.session_id });
+} finally {
+  database.close();
+}
+~~~
 
-The immutable plan validator/normalizer is exposed separately from database composition:
+The injected connection is shared by Workflow, Execution persistence, and Agent Session composition. The host owns its lifetime and closes it.
+
+## File-backed database
+
+For a host-managed local database, open it explicitly:
 
 ~~~js
 import {
-  workflowPlanApi,
-  validateExecutionPlan,
-  assertTaskDependenciesMatchPlan,
-  resolveTaskBatchRoute,
-} from '@runalith/workflow-runtime/workflow-plan';
+  openWorkflowDatabase,
+  createRunalithWorkflowStore,
+} from '@runalith/workflow-runtime';
 
-const validatedPlan = validateExecutionPlan(plan);
-const canonical = workflowPlanApi.canonicalJson(validatedPlan);
+const { database, dbPath } = openWorkflowDatabase({
+  environment: {
+    ...process.env,
+    WORKFLOW_DB: '/var/lib/my-service/workflow/workflow.db',
+  },
+});
+
+try {
+  const runtime = createRunalithWorkflowStore(database);
+  console.log({ dbPath, stats: runtime.getStats() });
+} finally {
+  database.close();
+}
 ~~~
 
-The API is frozen/versioned (`WORKFLOW_PLAN_API_VERSION = 1`) and exposes only four named methods: `canonicalJson`, `validateExecutionPlan`, `assertTaskDependenciesMatchPlan`, and `resolveTaskBatchRoute`. It has no SQLite, WorkflowStore or mutable persistence capability. Use this subpath for read/validation integrations that do not need the runtime store.
+openWorkflowDatabase() resolves and validates the database path, creates a private parent directory when needed, opens SQLite, enables foreign keys/WAL/busy timeout, and applies Workflow-owned schema initialization and migrations. On POSIX systems, the final database directory must be owned by the runtime user and mode 0700; database file permissions are secured to 0600. Ancestor directories are checked for replaceable writable paths.
 
-## Database and transaction semantics
+Path configuration:
 
-`openWorkflowDatabase()` validates canonical path ancestry, creates a private database directory, opens SQLite with foreign keys enabled, applies schema/migrations and returns `{ database, dbPath }`. `initializeWorkflowDatabase(database)` initializes a caller-owned compatible SQLite connection. `WorkflowStoreCore` accepts an injected connection.
+| Setting | Behavior |
+|---|---|
+| WORKFLOW_DB | Explicit database file path. Takes precedence over WORKFLOW_DATA_DIR. |
+| WORKFLOW_DATA_DIR | Database directory when WORKFLOW_DB is not set. |
+| neither set | Defaults to process.cwd()/data/workflow.db. |
 
-`WorkflowStatePort v2` remains the in-process Workflow coordination boundary. `ExecutionStatePort v1` exposes frozen, read-only attempt/result/batch/checkpoint projections. `ExecutionStateParticipant v1` exposes typed writes inside Workflow-owned transactions. Neither exposes a DB handle or generic transaction callback. Execution persistence and Agent Session use corresponding named APIs while retaining same-connection atomicity.
+See [Database integration](docs/integration.md) before using an existing database or deploying a persistent host.
 
-This package does **not** claim an independent datastore, service process or distributed transaction protocol. Workflow still coordinates leases, task projections, shared event journal and cross-domain send/result fences.
+## Composition and transaction ownership
 
-## Host-owned trust and QA dependencies
+- WorkflowStoreCore is the base Workflow store.
+- RunalithWorkflowStore (also exported as WorkflowStore) composes Workflow, Agent Session, Execution state, and provider-persistence participants.
+- All composed domains use the same SQLite connection.
+- Workflow owns transaction/savepoint boundaries. Execution participants expose named typed operations; they do not receive generic SQL or transaction controls.
+- WorkflowStatePort v2 is an in-process coordination boundary, not an RPC interface or separate datastore.
+- ExecutionStatePort v1 is frozen/read-only. ExecutionStateParticipant v1 exposes typed writes inside Workflow-owned transactions.
+- ExecutionPersistencePort v1 exposes provider-ledger operations. The persistence participant supports Workflow-owned reconciliation reads on the same connection.
 
-Owner approval contract constants and canonical serialization are included; Ed25519 Trust configuration and signature verification remain host-provided through an injected verifier callback. Missing verifier rejects protected approval operations.
+This is one local SQLite transaction unit. It is not a distributed transaction or independent service boundary.
 
-Production behavioral QA requires an explicit trusted host root via `configureProductionQaHarnessRoot(absolutePath)`, or the legacy source-layout resolver. The host root must include canonical `server/index.js` and `tests/test-production-behavioral-qa.js`; the latter must match the checked-in SHA-256 pin. Missing/mismatched harness means production QA is unavailable, never silently trusted.
+## Approval and trust status
 
-## Compatibility
+Owner-approval contract constants and canonical serialization are included, but signature verification and trust-root management remain host-owned. The host must configure setOwnerApprovalVerifier() with an independently trusted verifier; missing verifier fails closed.
 
-The API is versioned and pre-1.0. Back up durable databases before upgrades. API, storage and operational semantics may change before 1.0.
+**Current release limitation:** OWNER_APPROVAL_ALLOWED_ACTION_IDS is intentionally empty. The current owner-approval expectation builder rejects every action identifier, so an immutable plan cannot currently become owner-approval-ready for dispatch. Do not treat the presence of approval APIs or contract constants as a usable approval/dispatch authorization path. See [Security policy](SECURITY.md).
 
-See [`docs/architecture.md`](docs/architecture.md), [`docs/source-manifest.json`](docs/source-manifest.json) and [`SECURITY.md`](SECURITY.md).
+## Documentation
+
+- [Documentation index](docs/README.md)
+- [Architecture and module boundaries](docs/architecture.md)
+- [Database integration and lifecycle](docs/integration.md)
+- [Terminology](docs/terminology.md)
+- [Source lineage and extraction boundary](docs/source-lineage.md)
+- [Security policy](SECURITY.md)
+- [Changelog](CHANGELOG.md)
+- [Pinned source manifest](docs/source-manifest.json)
+
+## Development and validation
+
+~~~sh
+npm ci
+npm run check
+npm run test:packed-consumer
+npm run pack:check
+~~~
+
+npm run check verifies the pinned source hashes, checks the public entrypoint syntax, and runs the focused test suite. npm run test:packed-consumer packs the package, installs it into an isolated temporary consumer, and exercises the public API with an injected SQLite connection. npm run pack:check runs npm pack --dry-run.
+
+GitHub Actions runs the checks on Node.js 22 and 24 on Ubuntu. These tests establish package-level behavior and composition contracts; they do not certify a host deployment, trust configuration, provider, process executor, or production database.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
