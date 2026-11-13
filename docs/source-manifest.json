@@ -1,0 +1,279 @@
+{
+  "schemaVersion": 1,
+  "sourceRepository": "https://github.com/nplongx/runalith.git",
+  "sourceBranch": "integration/runalith-system-20261107",
+  "sourceBaseRevision": "29c24cfa2b6ead5704d26cf2746bc384f2938b80",
+  "sourceWorkingTreeWasDirty": true,
+  "sourceWorkingTreePatchNotCommitted": true,
+  "extractionEntryPoint": "src/runtime/runalith-runtime-composition.js",
+  "additionalEntryPoints": [
+    "src/runtime/workflow-control-port.js",
+    "src/runtime/execution-persistence-port.js",
+    "src/runtime/execution-contract.js"
+  ],
+  "relativeImportClosureFiles": 47,
+  "additionalSupportFiles": 2,
+  "manifestEntries": 52,
+  "files": [
+    {
+      "path": "index.js",
+      "sha256": "938c08a59e691ae8caae2563f3cae2a82952a56b39a79dbfc290f05780f695f4",
+      "sizeBytes": 2077
+    },
+    {
+      "path": "job-store.js",
+      "sha256": "3348f49f6c5e9b7ee0fc3fc08711e7bf55dae76979ccbc27d1c14a7ca2b332dd",
+      "sizeBytes": 278
+    },
+    {
+      "path": "package.json",
+      "sha256": "89c1125f08cdc8229ec7ab09334a1cb76d43847f9bf463aa08ba79c171b42b68",
+      "sizeBytes": 1357
+    },
+    {
+      "path": "protocol/cos-ap-v1/index.js",
+      "sha256": "43db058bfabc6792d0bb579de7031ca9a91e5f920847ba47cba7814a7bcff0de",
+      "sizeBytes": 22449
+    },
+    {
+      "path": "src/runtime/agent-contracts-public-api.js",
+      "sha256": "9fdd33f4b1dc90fb79c24f3b34b2d5ff9e209ace86e312bbb10407c7c47b920c",
+      "sizeBytes": 11416
+    },
+    {
+      "path": "src/runtime/agent-session-api.js",
+      "sha256": "e314ba38dfabb3f05d8514eb0c9c8fd665a3a3b8f9ba0631e75668268236d63e",
+      "sizeBytes": 2898
+    },
+    {
+      "path": "src/runtime/agent-session-policy.js",
+      "sha256": "10c76f624954f1915e499e9ebdd08986b4d5db9422d6478bc6c638f808ac2160",
+      "sizeBytes": 1550
+    },
+    {
+      "path": "src/runtime/agent-session-store.js",
+      "sha256": "3488ea9025d2f4a42c17be087f26cafb713e3dd7d078fabea54d8bfa098b5a70",
+      "sizeBytes": 105409
+    },
+    {
+      "path": "src/runtime/execution-contract.js",
+      "sha256": "2a0a7cf446242c86bb80d5d53d3450005c6bb1dea7560904b5446c1a3a220016",
+      "sizeBytes": 3757
+    },
+    {
+      "path": "src/runtime/execution-persistence-participant.js",
+      "sha256": "32fc0936182d866f3b0ddce6c27e27a3f7a8f5c7834629d815ce939e3b8a22f8",
+      "sizeBytes": 1622
+    },
+    {
+      "path": "src/runtime/execution-persistence-port.js",
+      "sha256": "1418d7e9c518fc063a041d98c7ea5d92fff9b7416671358a77a53fdc209be18e",
+      "sizeBytes": 4030
+    },
+    {
+      "path": "src/runtime/execution-persistence-store.js",
+      "sha256": "b46459af48b642be361837013a7a477cecd167137c52bef873c3ac93ceda1493",
+      "sizeBytes": 29459
+    },
+    {
+      "path": "src/runtime/execution-state-participant.js",
+      "sha256": "1d0dbda1684a5b3dba38b03455cf02546451673301d2de3dfda0ccf734f38c70",
+      "sizeBytes": 1886
+    },
+    {
+      "path": "src/runtime/execution-state-port.js",
+      "sha256": "703e458b619db1a96c3b740dcc6f8cabea448eedb1a3f5c5658117d75e8a22ca",
+      "sizeBytes": 2675
+    },
+    {
+      "path": "src/runtime/execution-state-store.js",
+      "sha256": "af35edb06ec50d8cdf2f8db7d2ab7a6677805db3d8e60f6c946f761a58074c03",
+      "sizeBytes": 29698
+    },
+    {
+      "path": "src/runtime/job-store.js",
+      "sha256": "431a457cb12842283e440850e38669c226c0c1befd94ccf8336a1e7d73f8ea23",
+      "sizeBytes": 514744
+    },
+    {
+      "path": "src/runtime/observability.js",
+      "sha256": "357e553cae6560c219e72f9e1dd4339f1fdfccae63af1fbeb565ac5c72308c8b",
+      "sizeBytes": 4194
+    },
+    {
+      "path": "src/runtime/owner-approval-contract.js",
+      "sha256": "9d2974b4f8308bdb132a07016496ef38909090e452b8f9be7ae2122e351df41b",
+      "sizeBytes": 4433
+    },
+    {
+      "path": "src/runtime/provider-dispatch-identity.js",
+      "sha256": "bd8708bcfe8d259d16876774024d85adf030d4736953e71c39fe46e72a110085",
+      "sizeBytes": 14428
+    },
+    {
+      "path": "src/runtime/runalith-runtime-composition.js",
+      "sha256": "d5d494733687d6adce46b832db3c0255bd4b2294b204cd8e3044fb049d8016b8",
+      "sizeBytes": 4029
+    },
+    {
+      "path": "src/runtime/secure-filesystem.js",
+      "sha256": "007947ab76be75d1eadf2382bcc0a7838134de7b6b37143d42635387e697d59a",
+      "sizeBytes": 13469
+    },
+    {
+      "path": "src/runtime/strict-json.js",
+      "sha256": "9e1f3b865f0f11a62e33592c333f617613a02309cc0d3357e95fc451d9ac736a",
+      "sizeBytes": 8484
+    },
+    {
+      "path": "src/runtime/workflow-contracts-public-api.js",
+      "sha256": "2008716cfad7e0b2f13da8ff9c4e9da09da84bedd0e795c8649a2575e68d4739",
+      "sizeBytes": 797
+    },
+    {
+      "path": "src/runtime/workflow-control-port.js",
+      "sha256": "146bf4a5f2966d7f92cfe101390d238b895e5c57a0a3e6b991382ed74d5685a5",
+      "sizeBytes": 1129
+    },
+    {
+      "path": "src/runtime/workflow-database.js",
+      "sha256": "55be144817d4ce2dfa3c82866c3613493beb103224b669f16bc439bbe80193e9",
+      "sizeBytes": 18932
+    },
+    {
+      "path": "src/runtime/workflow-plan-public-api.js",
+      "sha256": "60bc57442abfef078d35aa364e9e177027f9fe90520120c176397e3b0c768bc7",
+      "sizeBytes": 733
+    },
+    {
+      "path": "src/runtime/workflow-state-port.js",
+      "sha256": "aadf8341fbf976ad3965611c7f4ed6aedfc21ff2c675edf54bf56a64193739dd",
+      "sizeBytes": 71990
+    },
+    {
+      "path": "src/runtime/workflow-state-predicates.js",
+      "sha256": "7125a1c1f946935d4cff71a649743666384ebe5d44fc01bb6adad773393edfd3",
+      "sizeBytes": 6031
+    },
+    {
+      "path": "src/runtime/workflow/agent-contracts.js",
+      "sha256": "8128351de590ca5ac2e6ee3c8050d3ce7351505ea7c27c66cbe4035aee41638a",
+      "sizeBytes": 7612
+    },
+    {
+      "path": "src/runtime/workflow/agent-skills.js",
+      "sha256": "4c75051962bdc62672e050f063fd8d95eb0a113e2217863279fe5eded7024e26",
+      "sizeBytes": 12477
+    },
+    {
+      "path": "src/runtime/workflow/artifact-normalizer.js",
+      "sha256": "153516e7efe60fb0466cdec1817fc7efc8924207921fcc50c0725da2991b18c7",
+      "sizeBytes": 2754
+    },
+    {
+      "path": "src/runtime/workflow/artifacts.js",
+      "sha256": "e2ce2d7bbd26bd2f00d263f8458c0c350412525cc4a22c16c2eb6bd1b7bbd204",
+      "sizeBytes": 14906
+    },
+    {
+      "path": "src/runtime/workflow/catalog/engineering.js",
+      "sha256": "006719d9a0618795833842a24bb17e42ce41b37433b698b81f5e5a9939aa8b8e",
+      "sizeBytes": 2720
+    },
+    {
+      "path": "src/runtime/workflow/catalog/hybrid-engineering.js",
+      "sha256": "98f7657cdcbf4a14ac3a490d62dcaf5662d3c008bce6b7cf0042e7d6c868c873",
+      "sizeBytes": 2112
+    },
+    {
+      "path": "src/runtime/workflow/catalog/production.js",
+      "sha256": "d3986cda65ca7d40b42f4fd8431551485a7d53c3166e86483f662382159cd3d2",
+      "sizeBytes": 9461
+    },
+    {
+      "path": "src/runtime/workflow/catalog/standard-engineering.js",
+      "sha256": "e1746fca2ac50baf65af8570c182cb26ef687ddc71e29a77efd839c717ac09fb",
+      "sizeBytes": 5217
+    },
+    {
+      "path": "src/runtime/workflow/compiler.js",
+      "sha256": "5784fa0e3b75b6c38857e66f4ddfd99233d0ec8dd2fa0e69fae01d6dbc4decf9",
+      "sizeBytes": 19599
+    },
+    {
+      "path": "src/runtime/workflow/custom-roles.js",
+      "sha256": "a0f637e312c4f279f5266dcf2aeffef734bb2ec75671847df54b47785248f371",
+      "sizeBytes": 12860
+    },
+    {
+      "path": "src/runtime/workflow/definitions/engineering.js",
+      "sha256": "c66cddb65c061bf228ef5f6d78cd8f12dbf635757ccae8cc0b347153bd89cdcf",
+      "sizeBytes": 1482
+    },
+    {
+      "path": "src/runtime/workflow/definitions/hybrid-engineering.js",
+      "sha256": "3e4e4e9010f225e7b545e58aa30eadcc9d3ada3150ed100da7262ffc04a4d541",
+      "sizeBytes": 1223
+    },
+    {
+      "path": "src/runtime/workflow/definitions/index.js",
+      "sha256": "448e0f155da422fc6e3edd13c51d62b65ba733bc40e5a748a2142cac1e7e1335",
+      "sizeBytes": 1000
+    },
+    {
+      "path": "src/runtime/workflow/definitions/production.js",
+      "sha256": "708bf4403c30718dad7354c375c7843afcca779719b8b490ec6f5106c356de43",
+      "sizeBytes": 542
+    },
+    {
+      "path": "src/runtime/workflow/definitions/standard-engineering.js",
+      "sha256": "a789fbc07ae8f181445fc27265bde2aa368fd6f28116cefdffddddf571b5345c",
+      "sizeBytes": 1746
+    },
+    {
+      "path": "src/runtime/workflow/evidence.js",
+      "sha256": "e4924e8c12a0e8d029189452e5cce5d6379be769d826ea380487e97bac24d7d8",
+      "sizeBytes": 6057
+    },
+    {
+      "path": "src/runtime/workflow/phases.js",
+      "sha256": "445c688a3a3ae13b66d98ee84ee1345f8dd0e20dba538e5255f906e7b5672234",
+      "sizeBytes": 761
+    },
+    {
+      "path": "src/runtime/workflow/plan.js",
+      "sha256": "03f78a84f92a87aa606ff6cbdd6a56b2204281d2e6c07d05f156649efbefca8e",
+      "sizeBytes": 23246
+    },
+    {
+      "path": "src/runtime/workflow/policy-contract.js",
+      "sha256": "cccb834047d97fbd1f36741a6b466baf03e83e9a480402e5d85a283ada921b89",
+      "sizeBytes": 51358
+    },
+    {
+      "path": "src/runtime/workflow/role-profiles.js",
+      "sha256": "1843ae2f4ffec89e39d36d9eac10b4b9386bf6b048a0e1fd7780773c256f3bcf",
+      "sizeBytes": 7940
+    },
+    {
+      "path": "src/runtime/workflow/roles.js",
+      "sha256": "c3f7bbeb6c921793e7ed009c0eebc1cb3488e866cd3100b01784511da5d9ae69",
+      "sizeBytes": 3745
+    },
+    {
+      "path": "src/runtime/workflow/schema.js",
+      "sha256": "2d685e36cdba54a8509faf31e42f84809c5674c3c92511e139252fb7dfcec661",
+      "sizeBytes": 2915
+    },
+    {
+      "path": "src/runtime/workflow/success-contract.js",
+      "sha256": "08253ff8d31cc98b07bfa61346711e669ed07f91813975556b5292b30f585951",
+      "sizeBytes": 19578
+    },
+    {
+      "path": "src/runtime/workflow/workspace-write-contract.js",
+      "sha256": "082a69623128228372c28116ff3e999e0e80ba188222e50ce37a3d936a8f521a",
+      "sizeBytes": 9914
+    }
+  ]
+}

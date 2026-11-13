@@ -1,0 +1,11 @@
+node_modules/
+coverage/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.tgz
+npm-debug.log*
+.DS_Store

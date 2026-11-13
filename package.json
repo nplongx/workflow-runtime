@@ -1,0 +1,51 @@
+{
+  "name": "@runalith/workflow-runtime",
+  "version": "0.1.0",
+  "description": "Local-first, SQLite-backed durable workflow lifecycle and agent-session runtime.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./legacy": "./job-store.js",
+    "./database": "./src/runtime/workflow-database.js",
+    "./execution-contract": "./src/runtime/execution-contract.js"
+  },
+  "files": [
+    "index.js",
+    "job-store.js",
+    "src/",
+    "protocol/",
+    "README.md",
+    "LICENSE",
+    "SECURITY.md",
+    "CHANGELOG.md",
+    "docs/"
+  ],
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "test": "node --test tests/*.mjs",
+    "check": "npm run check:manifest && node --check index.js && npm test",
+    "pack:check": "npm pack --dry-run",
+    "test:packed-consumer": "node scripts/test-workflow-runtime-packed-consumer.mjs",
+    "check:manifest": "node scripts/verify-source-manifest.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nplongx/workflow-runtime.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nplongx/workflow-runtime/issues"
+  },
+  "homepage": "https://github.com/nplongx/workflow-runtime#readme",
+  "keywords": [
+    "workflow-runtime",
+    "durable-workflows",
+    "sqlite",
+    "agent-runtime",
+    "leases",
+    "execution-state"
+  ]
+}
