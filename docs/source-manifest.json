@@ -27,7 +27,7 @@
     },
     {
       "path": "package.json",
-      "sha256": "b7f50ed45ec3af834ee37464fd73567f35c5aae23aa429591114c9d76bf606ba",
+      "sha256": "9e85e7d1105cb5400153415b9cd3aa7253ecf8cd13bfad22a543d2e34f144f1d",
       "sizeBytes": 4297
     },
     {
@@ -212,7 +212,7 @@
     },
     {
       "path": "src/runtime/workflow/custom-workflow-contract.js",
-      "sha256": "ef0c67820f9c3c8334f1b127aaa8de063c54bea83d07a45d91b6b28d78d6551b",
+      "sha256": "64bf48e92f94b124edba496f7f604e349a1c00d5f7b771b44ad13ab9af0efac5",
       "sizeBytes": 7612
     },
     {
@@ -311,5 +311,5 @@
       "sizeBytes": 9914
     }
   ],
-  "packageVersion": "0.3.15"
+  "packageVersion": "0.3.16"
 }

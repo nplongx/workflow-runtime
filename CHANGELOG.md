@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.16
+
+- Correct the 0.3.15 source manifest after restoring the immutable custom-workflow contract source to the preceding committed bytes.
+- No custom-workflow API behavior changes; preserve the package-owned custom-role contract additions.
+
+
 ## 0.3.15
 
 - Expose pure custom-role schema, allowlist validation, partial-definition normalization and fingerprinting through ./custom-role-contract.
