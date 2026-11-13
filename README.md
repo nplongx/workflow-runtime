@@ -7,7 +7,7 @@
 
 It is a composable runtime library, not a network service or a self-running workflow platform. The host application remains responsible for authenticated identity, trust configuration, provider calls, process execution, scheduling, external side effects, and operational recovery.
 
-> **Status:** 0.3.4, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
+> **Status:** 0.3.5, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
 
 ## Scope
 
@@ -16,9 +16,10 @@ It is a composable runtime library, not a network service or a self-running work
 - Execution attempts, results, execution batches/items, and checkpoints.
 - Provider run and dispatch-intent records, including unresolved-outcome and reconciliation state.
 - Agent Session records, access grants, message queues, delivery claims, receipts, and lifecycle hooks.
-- Workflow definitions, role/agent contracts, plan compilation, policy/success contracts, artifact validation, and evidence normalization.
+- Workflow definitions, role/agent contracts, plan compilation and policy; pure artifact DTO/hash/validation is delegated to Workflow Contracts, while Workflow Runtime owns evidence normalization and lifecycle orchestration.
 - Immutable phase identifiers and production phase ordering through `@runalith/workflow-runtime/phases`.
 - Pure reviewer-artifact normalization and schema parsing through `@runalith/workflow-runtime/artifact-normalizer`.
+- Durable artifact DTOs, content hashing and validation are consumed from `@runalith/workflow-contracts`; Workflow Runtime's internal `workflow/artifacts.js` path remains a compatibility re-export only.
 - Pure immutable Success Contract normalization and predicate/assessment validation through `@runalith/workflow-runtime/success-contract`.
 - Immutable built-in Workflow role capability vocabulary and validation through `@runalith/workflow-runtime/roles`.
 - Version-pinned custom role profile bindings, profile hashes and task overlay validation through `@runalith/workflow-runtime/role-profiles`.

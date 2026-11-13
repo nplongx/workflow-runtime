@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.5
+
+- Delegate Workflow Runtime's internal artifact compatibility module to the pinned `@runalith/workflow-contracts` root API.
+- Eliminate the duplicate durable artifact DTO/hash/validation implementation from Workflow Runtime while preserving its existing internal import path and exports.
+- WorkflowStore remains responsible for artifact selection, persistence, event ordering, approval and transaction authority.
+
 ## 0.3.4
 
 - Expose pure durable Workflow execution-evidence construction and validation through `@runalith/workflow-runtime/evidence`.

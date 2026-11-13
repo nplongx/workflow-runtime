@@ -27,7 +27,7 @@
     },
     {
       "path": "package.json",
-      "sha256": "5579136eae5289c26660c54c7632e8d8f44e45378cb24f4dccfbe9e855fc44e4",
+      "sha256": "612c929ce9edae5e5b1de010b509be15b05fb2cfe03cd63d5c541acb463d8a2f",
       "sizeBytes": 2243
     },
     {
@@ -172,8 +172,8 @@
     },
     {
       "path": "src/runtime/workflow/artifacts.js",
-      "sha256": "e2ce2d7bbd26bd2f00d263f8458c0c350412525cc4a22c16c2eb6bd1b7bbd204",
-      "sizeBytes": 14906
+      "sha256": "c90305eaa8aeeef2fb70e48892035a2de88f05b46cd0192c9d48cbd1a01fa6f4",
+      "sizeBytes": 312
     },
     {
       "path": "src/runtime/workflow/catalog/engineering.js",
@@ -276,5 +276,5 @@
       "sizeBytes": 9914
     }
   ],
-  "packageVersion": "0.3.4"
+  "packageVersion": "0.3.5"
 }
