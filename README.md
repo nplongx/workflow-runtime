@@ -7,7 +7,7 @@
 
 It is a composable runtime library, not a network service or a self-running workflow platform. The host application remains responsible for authenticated identity, trust configuration, provider calls, process execution, scheduling, external side effects, and operational recovery.
 
-> **Status:** 0.3.11, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
+> **Status:** 0.3.12, GitHub-first source package. Not published to npm. Public APIs and storage/migration compatibility remain pre-1.0.
 
 ## Scope
 
@@ -335,3 +335,7 @@ The read-only `./policy-contract` subpath exposes policy schema normalization, i
 ## Workflow schema contract
 
 The narrow `./schema-contract` subpath exports only the pure `validateWorkflowDefinition` function over detached Workflow definition records. Workflow-specific catalog validation stays on the host path; Production QA harness root and digest remain host-owned and are not re-exported.
+
+## Workflow plan compiler
+
+The `./compiler` subpath exports `createWorkflowPlanCompiler`. It constructs immutable, hash-bound Workflow plan records from caller-supplied job/custom-workflow read models and package-owned built-in definitions/catalogs. Production compilation fails closed unless host composition explicitly injects its Production QA catalog; the package does not carry or locate the host QA harness. Compilation does not read/write SQLite, authorize transitions, approve plans, launch tasks, retry or dispatch.

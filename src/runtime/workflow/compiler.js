@@ -4,11 +4,11 @@ import { ProductionTaskId, productionTaskSpec, productionChildTaskSpecs } from '
 import { engineeringTaskSpec, engineeringTaskSpecs } from './catalog/engineering.js';
 import { standardEngineeringTaskSpec, standardEngineeringTaskSpecs } from './catalog/standard-engineering.js';
 import { hybridEngineeringTaskSpecs } from './catalog/hybrid-engineering.js';
-import { validateWorkflowDefinition } from './schema.js';
+import { validateWorkflowDefinition } from './schema-contract.js';
 import { canonicalJson, validateExecutionPlan } from './plan.js';
-import { artifactSchemaForType } from '../workflow-contracts-public-api.js';
+import { artifactSchemaForType } from '@runalith/workflow-contracts';
 import { getAgentArtifactType, getAgentContract, validateCompiledActionIntent } from './agent-contracts.js';
-import { normalizeSuccessContract } from '../workflow-contracts-public-api.js';
+import { normalizeSuccessContract } from './success-contract.js';
 import { composePolicySuccessContract, resolveValidationProfileSnapshot, materializeValidationProfileTasks } from './policy-contract.js';
 import { BUILTIN_ROLE_PROFILE_OVERLAY_ROLES, createRoleProfileOverlay } from './role-profiles.js';
 import { normalizeWorkspaceWriteContract, workspaceWriteScopeForRole } from './workspace-write-contract.js';
@@ -122,7 +122,18 @@ function defaultBatchExecutionPolicy(children, { requiresWorkspaceValidation = f
   };
 }
 
-export function compileWorkflowPlan(job, { workspace = process.env.WORKFLOW_WORKSPACE, customWorkflow = null, successContract = null, policyPacks = [], roleProfiles = [], requiredOperations = [], workspaceWriteScopes = [], workflowVersion = null, batchExecutionPolicy = undefined, validationProfileSelector = null, actionIntentBindings = [] } = {}) {
+export function createWorkflowPlanCompiler({ productionCatalog = null } = {}) {
+  if (productionCatalog !== null && (!productionCatalog || typeof productionCatalog !== 'object' ||
+      !productionCatalog.ProductionTaskId || typeof productionCatalog.ProductionTaskId.CTO_SYNTHESIS !== 'string' ||
+      typeof productionCatalog.productionTaskSpec !== 'function' || typeof productionCatalog.productionChildTaskSpecs !== 'function')) {
+    throw new TypeError('productionCatalog must provide ProductionTaskId.CTO_SYNTHESIS, productionTaskSpec and productionChildTaskSpecs');
+  }
+  const pinnedProductionCatalog = productionCatalog === null ? null : Object.freeze({
+    ProductionTaskId: productionCatalog.ProductionTaskId,
+    productionTaskSpec: productionCatalog.productionTaskSpec,
+    productionChildTaskSpecs: productionCatalog.productionChildTaskSpecs
+  });
+  return function compileWorkflowPlan(job, { workspace = process.env.WORKFLOW_WORKSPACE, customWorkflow = null, successContract = null, policyPacks = [], roleProfiles = [], requiredOperations = [], workspaceWriteScopes = [], workflowVersion = null, batchExecutionPolicy = undefined, validationProfileSelector = null, actionIntentBindings = [] } = {}) {
   if (!job?.job_id) throw new Error('job is required to compile execution plan');
   // null is reserved for existing schema-v1 plans so runtime revalidation never rewrites their hashes.
   const preserveLegacyPlan = batchExecutionPolicy === null;
@@ -208,6 +219,9 @@ export function compileWorkflowPlan(job, { workspace = process.env.WORKFLOW_WORK
     ? latestDefinition : Object.freeze({ ...latestDefinition, version: workflowVersion });
   validateWorkflowDefinition(definition);
   const isProduction = definition.id === 'production';
+  if (isProduction && !pinnedProductionCatalog) {
+    throw new Error('PRODUCTION_WORKFLOW_CATALOG_REQUIRED: host composition must inject the digest-pinned Production QA catalog');
+  }
   const isStandardEngineering = definition.id === 'standard-engineering';
   const isHybridEngineering = definition.id === 'hybrid-engineering';
   const workspaceWriteContract = normalizeWorkspaceWriteContract({
@@ -240,7 +254,7 @@ export function compileWorkflowPlan(job, { workspace = process.env.WORKFLOW_WORK
     profilesByRole.set(binding.role, binding);
   }
   const baseChildren = isProduction
-    ? productionChildTaskSpecs(workspace).map(spec => ({ id: spec.id, role: spec.role, execution: spec.execution, capability: null, dependencies: [] }))
+    ? pinnedProductionCatalog.productionChildTaskSpecs(workspace).map(spec => ({ id: spec.id, role: spec.role, execution: spec.execution, capability: null, dependencies: [] }))
     : isHybridEngineering ? hybridEngineeringTaskSpecs(workspace)
       : isStandardEngineering ? standardEngineeringTaskSpecs(workspace, {
         includeBatchValidation: Boolean(workspaceWriteContract && !preserveLegacyPlan && !validationProfileSnapshot),
@@ -278,7 +292,7 @@ export function compileWorkflowPlan(job, { workspace = process.env.WORKFLOW_WORK
   }
   children = applyActionIntentBindings(children, actionIntentBindings);
   const synthesis = isProduction
-    ? productionTaskSpec(ProductionTaskId.CTO_SYNTHESIS, { workspace })
+    ? pinnedProductionCatalog.productionTaskSpec(pinnedProductionCatalog.ProductionTaskId.CTO_SYNTHESIS, { workspace })
     : isHybridEngineering
       ? { ...standardEngineeringTaskSpec(definition.synthesisTask, { workspace }), dependencies: children.map(item => item.id) }
       : isStandardEngineering ? standardEngineeringTaskSpec(definition.synthesisTask, { workspace }) : engineeringTaskSpec(definition.synthesisTask, { workspace });
@@ -318,4 +332,10 @@ export function compileWorkflowPlan(job, { workspace = process.env.WORKFLOW_WORK
   validateExecutionPlan(plan);
   const planJson = canonicalJson(plan);
   return Object.freeze({ ...plan, plan_hash: hash(planJson) });
+  };
 }
+
+// Package-internal default for the package-owned WorkflowStore. Host plugins should bind their own root-aware catalog.
+export const compileWorkflowPlan = createWorkflowPlanCompiler({
+  productionCatalog: Object.freeze({ ProductionTaskId, productionTaskSpec, productionChildTaskSpecs })
+});

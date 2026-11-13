@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.12
+
+- Expose pure built-in/custom Workflow plan compilation through `./compiler` using `createWorkflowPlanCompiler`.
+- Keep the Production QA catalog and its digest-pinned harness rooted in host composition; compilation of Production requires an explicit host-injected catalog.
+- Preserve all existing plan validation, policy, role-profile, workspace-write, Action Intent and immutable hash semantics. The compiler performs no DB reads/writes, approval, transition, retry or dispatch.
+
+
 ## 0.3.11
 
 - Expose narrow `./schema-contract` subpath for the package-owned pure `validateWorkflowDefinition` function.

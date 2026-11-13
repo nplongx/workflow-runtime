@@ -29,7 +29,7 @@ try {
   const packed = JSON.parse(run('npm', ['pack', '--json', '--pack-destination', temporaryRoot], root, 'npm pack'));
   assert.equal(packed.length, 1);
   assert.equal(packed[0].name, '@runalith/workflow-runtime');
-  assert.equal(packed[0].version, '0.3.11');
+  assert.equal(packed[0].version, '0.3.12');
   const tarball = path.join(temporaryRoot, packed[0].filename);
   assert.ok(fs.statSync(tarball).size > 10_000);
 
@@ -62,6 +62,7 @@ try {
     const workflowErrors = await import('@runalith/workflow-runtime/tool-errors');
     const policyContract = await import('@runalith/workflow-runtime/policy-contract');
     const workflowSchema = await import('@runalith/workflow-runtime/schema-contract');
+    const workflowCompiler = await import('@runalith/workflow-runtime/compiler');
     const agentContracts = await import('@runalith/agent-contracts');
     const workspaceFilesystem = await import('@runalith/workspace-runtime/filesystem');
     assert.equal(fs.existsSync(${JSON.stringify(databasePath)}), false, 'package import created host database');
@@ -173,6 +174,13 @@ try {
     assert.equal(typeof policyContract.createWorkflowPolicy, 'undefined', 'public pure policy API must not export policy persistence');
     assert.equal(workflowSchema.validateWorkflowDefinition({ id: 'packed-schema', version: 1, phases: ['plan'], requiredChildren: ['task'] }).id, 'packed-schema');
     assert.equal(typeof workflowSchema.validateProductionWorkflow, 'undefined', 'production harness validation must remain outside the narrow schema contract');
+    const compilePlan = workflowCompiler.createWorkflowPlanCompiler();
+    const packedPlan = compilePlan({ job_id: 'packed-compiler', title: 'Engineering M4 compiler API' }, { workspace: '/tmp' });
+    assert.equal(packedPlan.workflow_id, 'engineering');
+    assert.match(packedPlan.plan_hash, /^[a-f0-9]{64}$/);
+    assert.throws(() => compilePlan({ job_id: 'packed-production', title: 'Production E2E packed compiler' }, { workspace: '/tmp' }), /PRODUCTION_WORKFLOW_CATALOG_REQUIRED/);
+    assert.equal(typeof workflowCompiler.compileWorkflowPlan, 'function', 'package WorkflowStore must retain its internal compiler compatibility export');
+    assert.equal(workflowCompiler.compileWorkflowPlan({ job_id: 'packed-default-compiler', title: 'Engineering M4 default compiler' }, { workspace: '/tmp' }).workflow_id, 'engineering');
     assert.equal(typeof api.workflowPlanApi.validateExecutionPlan, 'function');
     const planApi = await import('@runalith/workflow-runtime/workflow-plan');
     assert.equal(planApi.WORKFLOW_PLAN_API_VERSION, 1);

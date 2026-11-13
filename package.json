@@ -1,6 +1,6 @@
 {
   "name": "@runalith/workflow-runtime",
-  "version": "0.3.11",
+  "version": "0.3.12",
   "description": "Local-first, SQLite-backed durable workflow lifecycle and agent-session runtime.",
   "license": "MIT",
   "type": "module",
@@ -30,7 +30,8 @@
     "./recovery-compatibility": "./src/runtime/workflow/recovery-compatibility.js",
     "./tool-errors": "./src/runtime/workflow/tool-errors.js",
     "./policy-contract": "./src/runtime/workflow/policy-contract-public-api.js",
-    "./schema-contract": "./src/runtime/workflow/schema-contract.js"
+    "./schema-contract": "./src/runtime/workflow/schema-contract.js",
+    "./compiler": "./src/runtime/workflow/compiler.js"
   },
   "files": [
     "index.js",
